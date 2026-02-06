@@ -41,7 +41,7 @@ export function Hero() {
     return (
         <>
             {/* Background Fixo */}
-            <div className="fixed top-0 left-0 w-full h-screen -z-50">
+            <div className="fixed top-0 left-0 w-full h-[100dvh] -z-50">
                 <img
                     src="/helem foto de capa.jpg"
                     alt="Helem Caminhando"
@@ -52,7 +52,7 @@ export function Hero() {
             </div>
 
             {/* Conteúdo da Hero Section (scrollable) */}
-            <div className="relative w-full h-[calc(100vh-6rem)] flex items-center justify-center">
+            <div className="relative w-full min-h-[calc(100dvh-6rem)] flex items-center justify-center">
                 <motion.h1
                     className="text-4xl sm:text-5xl md:text-8xl font-bold text-white drop-shadow-lg text-center px-4 flex flex-wrap justify-center"
                     style={{ fontFamily: 'var(--font-indie)' }}

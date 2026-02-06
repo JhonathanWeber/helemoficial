@@ -82,7 +82,7 @@ export function Navbar() {
             <div className={`fixed inset-0 z-[60] bg-black/50 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}></div>
 
             {/* Mobile Sidebar */}
-            <div className={`fixed top-0 right-0 z-[70] h-full w-[80%] max-w-sm bg-[#6D28D9] shadow-2xl transition-transform duration-300 transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 z-[70] h-[100dvh] w-[80%] max-w-sm bg-[#6D28D9] shadow-2xl transition-transform duration-300 transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex flex-col h-full bg-helem-purple-mid text-white">
                     <div className="flex justify-end p-6 h-24 items-center">
                         <button onClick={() => setIsMobileMenuOpen(false)}>
