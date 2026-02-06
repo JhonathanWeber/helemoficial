@@ -31,19 +31,16 @@ export function ContactSection() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[500px] md:h-[700px]"
                 >
-                    {/* OpenStreetMap - Maricá RJ */}
+                    {/* Google Maps - Maricá RJ */}
                     <div className="w-full h-full relative z-0">
                         <iframe
-                            width="100%"
-                            height="100%"
-                            className="w-full h-full"
-                            frameBorder="0"
-                            scrolling="no"
-                            marginHeight={0}
-                            marginWidth={0}
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=-42.8260,-22.9240,-42.8160,-22.9150&amp;layer=mapnik&amp;marker=-22.91985,-42.82106"
+                            className="w-full h-full grayscale-[50%] hover:grayscale-0 transition-all duration-700 opacity-90"
+                            style={{ border: 0 }}
+                            loading="lazy"
+                            allowFullScreen
+                            referrerPolicy="no-referrer-when-downgrade"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-42.8251,-22.9231,-42.8191,-22.9171&amp;layer=mapnik&amp;marker=-22.91990,-42.82105"
                             title="Mapa de Maricá - Prefeitura"
-
                         ></iframe>
                     </div>
 
