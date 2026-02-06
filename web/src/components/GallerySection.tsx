@@ -48,7 +48,7 @@ export function GallerySection() {
     };
 
     return (
-        <section id="galeria" className="min-h-screen py-16 bg-purple-50 flex flex-col justify-center items-center overflow-hidden">
+        <section id="galeria" className="min-h-screen py-16 bg-purple-50/90 backdrop-blur-md flex flex-col justify-center items-center overflow-hidden">
             {/* Header */}
             <div className="flex items-center space-x-4 mb-10">
                 <Camera className="w-10 h-10 text-purple-400 stroke-1" />

@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 export function Navbar() {
     const [isVisible, setIsVisible] = useState(true);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
         const handleScroll = () => {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Caveat } from "next/font/google";
+import { Geist, Geist_Mono, Caveat, Indie_Flower } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +17,13 @@ const caveat = Caveat({
   subsets: ["latin"],
 });
 
+const indieFlower = Indie_Flower({
+  weight: "400",
+  variable: "--font-indie",
+  subsets: ["latin"],
+});
+
+
 export const metadata: Metadata = {
   title: "Helem Christina - Oficial",
   description: "Site oficial da Helem Christina",
@@ -30,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${indieFlower.variable} antialiased`}
       >
         {children}
       </body>

@@ -1,21 +1,36 @@
+"use client";
+
 import { MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ContactSection() {
     return (
-        <section className="min-h-screen flex flex-col justify-center bg-gradient-to-b from-yellow-400 to-orange-400 pt-16 pb-12 px-6">
+        <section className="min-h-screen flex flex-col justify-center bg-gradient-to-b from-yellow-400/90 to-orange-400/90 backdrop-blur-md pt-16 pb-12 px-6 overflow-hidden">
             <div className="max-w-[90%] mx-auto w-full">
 
                 {/* Header */}
-                <div className="flex justify-center items-center mb-10 space-x-3">
+                <motion.div
+                    initial={{ y: -50, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="flex justify-center items-center mb-10 space-x-3"
+                >
                     <MapPin className="text-purple-700 w-10 h-10 fill-transparent" />
                     <h2 className="text-3xl font-bold text-purple-800 leading-tight">
                         <span className="block text-lg font-normal text-purple-700">Venha conversar</span>
                         COMIGO!
                     </h2>
-                </div>
+                </motion.div>
 
                 {/* Map & Info Card */}
-                <div className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[500px] md:h-[700px]">
+                <motion.div
+                    initial={{ scale: 0.5, opacity: 0, filter: "blur(10px)" }}
+                    whileInView={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+                    viewport={{ once: false, amount: 0.1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[500px] md:h-[700px]"
+                >
                     {/* OpenStreetMap - Maricá RJ */}
                     <div className="w-full h-full relative z-0">
                         <iframe
@@ -44,7 +59,7 @@ export function ContactSection() {
                             Ver no Mapa
                         </button>
                     </div>
-                </div>
+                </motion.div>
 
             </div>
         </section>

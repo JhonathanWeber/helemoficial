@@ -1,21 +1,50 @@
+"use client";
+
+import { useRef } from "react";
 import { Key } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function HistorySection() {
+    const containerRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "center center"]
+    });
+
+    // Transformações visuais baseadas no scroll
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+    const scale = useTransform(scrollYProgress, [0, 0.8], [0.8, 1]);
+
+    // Movimento da imagem (vem da esquerda)
+    const xImage = useTransform(scrollYProgress, [0, 1], [-100, 0]);
+    // Movimento do texto (vem da direita)
+    const xText = useTransform(scrollYProgress, [0, 1], [100, 0]);
+
     return (
-        <section id="historia" className="w-full min-h-screen flex flex-col justify-center bg-[#FAF9F6] py-16 px-6 md:px-20 relative overflow-hidden">
+        <section
+            ref={containerRef}
+            id="historia"
+            className="w-full min-h-screen flex flex-col justify-center bg-[#FAF9F6]/90 backdrop-blur-md py-16 px-6 md:px-20 relative overflow-hidden"
+        >
             {/* Header with Icon */}
-            <div className="flex flex-col items-center justify-center mb-12">
+            <motion.div
+                style={{ opacity, scale }}
+                className="flex flex-col items-center justify-center mb-12"
+            >
                 <Key className="text-yellow-400 w-12 h-12 mb-2 rotate-45" strokeWidth={2.5} />
                 <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-900 leading-tight">
                     <span className="block text-xl font-normal text-purple-800">Conheça minha</span>
                     HISTÓRIA
                 </h2>
-            </div>
+            </motion.div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-base md:text-lg text-gray-800">
 
                 {/* Left Column: Image */}
-                <div className="relative flex justify-center lg:justify-end">
+                <motion.div
+                    style={{ x: xImage, opacity, scale }}
+                    className="relative flex justify-center lg:justify-end"
+                >
                     {/* Yellow decorative blob background */}
                     <div className="absolute top-10 left-10 md:left-20 w-80 h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl"></div>
 
@@ -26,10 +55,13 @@ export function HistorySection() {
                             className="w-full h-auto object-contain rounded-xl"
                         />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Right Column: Text */}
-                <div className="space-y-8 text-purple-950 font-medium leading-relaxed">
+                <motion.div
+                    style={{ x: xText, opacity, scale }}
+                    className="space-y-8 text-purple-950 font-medium leading-relaxed"
+                >
                     <p>
                         Eu sou Helem.<br />
                         Sou mulher, mãe, filha de lutas e movida pelo amor às pessoas e aos territórios onde a vida acontece.
@@ -53,7 +85,7 @@ export function HistorySection() {
                         Eu sigo porque acredito.<br />
                         E porque sei que quando a gente caminha junto, ninguém fica pra trás.
                     </p>
-                </div>
+                </motion.div>
             </div>
 
             {/* Decorative side element */}
