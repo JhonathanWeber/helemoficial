@@ -48,7 +48,7 @@ export function Footer() {
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     viewport={{ once: false, amount: 0.3 }}
-                    className="relative z-10 md:mb-40 mb-[35%] max-w-4xl text-center px-4"
+                    className="relative z-10 md:mb-40 mb-[45%] max-w-4xl text-center px-4"
                 >
                     <h3 className="text-white text-4xl md:text-7xl font-bold font-sans drop-shadow-md">
                         Minha caminhada é junto com as mulheres<br />
