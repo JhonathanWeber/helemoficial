@@ -29,7 +29,7 @@ export function ContactSection() {
                     whileInView={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
                     viewport={{ once: false, amount: 0.1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[500px] md:h-[700px]"
+                    className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[400px] md:h-[700px]"
                 >
                     {/* Google Maps - Maricá RJ */}
                     <div className="w-full h-full relative z-0">
@@ -45,14 +45,14 @@ export function ContactSection() {
                     </div>
 
                     {/* Floating Card */}
-                    <div className="absolute bottom-6 right-6 md:top-1/2 md:-translate-y-1/2 md:right-10 bg-[#0EA5E9] text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full">
-                        <h3 className="text-xl font-bold mb-1">Prefeitura Municipal</h3>
-                        <h4 className="text-2xl font-extrabold mb-4">de Maricá</h4>
-                        <p className="text-sm opacity-90 mb-6">
+                    <div className="absolute bottom-4 right-4 left-4 md:left-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-10 bg-[#0EA5E9] text-white p-4 md:p-6 rounded-xl md:rounded-2xl shadow-2xl md:max-w-sm w-auto md:w-full">
+                        <h3 className="text-lg md:text-xl font-bold mb-0.5 md:mb-1">Prefeitura Municipal</h3>
+                        <h4 className="text-xl md:text-2xl font-extrabold mb-3 md:mb-4">de Maricá</h4>
+                        <p className="text-xs md:text-sm opacity-90 mb-3 md:mb-6">
                             Rua Álvares de Castro, 346<br />
                             Centro, Maricá - RJ, 24900-880
                         </p>
-                        <button className="bg-yellow-400 hover:bg-yellow-300 text-purple-900 font-bold py-3 px-8 rounded-full w-full transition shadow-lg">
+                        <button className="bg-yellow-400 hover:bg-yellow-300 text-purple-900 font-bold py-2 md:py-3 px-4 md:px-8 rounded-full w-full text-sm md:text-base transition shadow-lg">
                             Ver no Mapa
                         </button>
                     </div>

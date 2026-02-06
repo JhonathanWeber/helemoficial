@@ -50,11 +50,11 @@ export function Footer() {
                     viewport={{ once: false, amount: 0.3 }}
                     className="relative z-10 mb-40 max-w-4xl text-center px-4"
                 >
-                    <h3 className="text-white text-xl md:text-7xl font-bold font-sans drop-shadow-md">
+                    <h3 className="text-white text-4xl md:text-7xl font-bold font-sans drop-shadow-md">
                         Minha caminhada é junto com as mulheres<br />
                         e os trabalhadores do nosso estado!
                     </h3>
-                    <p className="text-white text-right text-3xl mt-2 font-bold">- Helem</p>
+                    <p className="text-white text-center md:text-right text-xl md:text-3xl mt-2 font-bold">- Helem</p>
                 </motion.div>
             </div>
         </footer>

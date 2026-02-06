@@ -54,7 +54,7 @@ export function Hero() {
             {/* Conteúdo da Hero Section (scrollable) */}
             <div className="relative w-full h-[calc(100vh-6rem)] flex items-center justify-center">
                 <motion.h1
-                    className="text-6xl md:text-8xl font-bold text-white drop-shadow-lg text-center px-4 flex flex-wrap justify-center"
+                    className="text-4xl sm:text-5xl md:text-8xl font-bold text-white drop-shadow-lg text-center px-4 flex flex-wrap justify-center"
                     style={{ fontFamily: 'var(--font-indie)' }}
                     variants={container}
                     initial="hidden"

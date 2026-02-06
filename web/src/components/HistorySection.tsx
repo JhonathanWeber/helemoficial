@@ -38,17 +38,17 @@ export function HistorySection() {
                 </h2>
             </motion.div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-base md:text-lg text-gray-800">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center text-base md:text-lg text-gray-800">
 
                 {/* Left Column: Image */}
                 <motion.div
                     style={{ x: xImage, opacity, scale }}
-                    className="relative flex justify-center lg:justify-end"
+                    className="relative flex justify-center lg:justify-end order-1 lg:order-none"
                 >
                     {/* Yellow decorative blob background */}
-                    <div className="absolute top-10 left-10 md:left-20 w-80 h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl"></div>
+                    <div className="absolute top-10 w-64 h-[70%] md:w-80 md:h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl"></div>
 
-                    <div className="relative z-10 w-full max-w-[500px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-500">
+                    <div className="relative z-10 w-[280px] md:w-full max-w-[500px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-500">
                         <img
                             src="/helem foto de perfil corpo.jpg"
                             alt="Helem Portrait"
@@ -60,7 +60,7 @@ export function HistorySection() {
                 {/* Right Column: Text */}
                 <motion.div
                     style={{ x: xText, opacity, scale }}
-                    className="space-y-8 text-purple-950 font-medium leading-relaxed"
+                    className="space-y-6 md:space-y-8 text-purple-950 font-medium leading-relaxed px-4 md:px-0 order-2 lg:order-none text-center md:text-left"
                 >
                     <p>
                         Eu sou Helem.<br />

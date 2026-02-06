@@ -74,7 +74,7 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu Icon */}
-            <button className="md:hidden pr-6" onClick={() => setIsMobileMenuOpen(true)}>
+            <button className="md:hidden" onClick={() => setIsMobileMenuOpen(true)}>
                 <Menu className="w-8 h-8" />
             </button>
 
