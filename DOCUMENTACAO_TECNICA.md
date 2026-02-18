@@ -120,8 +120,13 @@ Cada domínio de dados (Auth, Gallery, Posts) possui um serviço dedicado que ut
     - Cores primárias focadas em tons de roxo (`purple-900`, `purple-800`).
     - Design responsivo mobile-first.
 
-## 7. Próximos Passos Recomendados
+## 8. Guia de Produção (Vercel)
 
-1.  **Refatoração de Auth**: Integrar a página de login com o `authService` real e remover hardcoded credentials.
-2.  **Middleware do Next.js**: Implementar `middleware.ts` para proteção de rotas no servidor (edge) ao invés de apenas no cliente (`useLayoutEffect`), garantindo maior segurança e performance.
-3.  **Tratamento de Loading**: Adicionar estados de loading nas chamadas de serviço.
+Para subir o frontend para a Vercel:
+1. **Conexão**: Conecte o repositório GitHub e aponte o "Root Directory" para `web`.
+2. **Variáveis de Ambiente**:
+   - `NEXT_PUBLIC_API_URL`: URL completa do seu backend no Railway (ex: `https://api-helem.up.railway.app`).
+3. **Build**: O Next.js será detectado automaticamente. O comando de build padrão (`npm run build`) já inclui as otimizações necessárias.
+
+> [!TIP]
+> O projeto utiliza Proxy (Rewrites) no Next.js para evitar problemas de CORS e Cookies em produção. Certifique-se de que a variável `NEXT_PUBLIC_API_URL` esteja correta.
