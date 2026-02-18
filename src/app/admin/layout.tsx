@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu } from "lucide-react";
+import { authService } from "@/services/auth";
 
 export default function AdminLayout({
     children,
@@ -14,14 +15,25 @@ export default function AdminLayout({
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     useEffect(() => {
-        const isAdmin = localStorage.getItem("isAdmin");
-        if (!isAdmin) {
-            router.push("/login");
-        }
+        const checkAuth = async () => {
+            try {
+                // Verify if user is authenticated with backend
+                await authService.getMe();
+                // If success, stay on page
+            } catch (error) {
+                // If error (401), redirect to login
+                router.push("/login");
+            }
+        };
+        checkAuth();
     }, [router]);
 
-    const handleLogout = () => {
-        localStorage.removeItem("isAdmin");
+    const handleLogout = async () => {
+        try {
+            await authService.logout(); // Call backend to clear cookie
+        } catch (error) {
+            console.error(error);
+        }
         router.push("/login");
     };
 
