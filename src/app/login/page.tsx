@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, User } from "lucide-react";
+import { authService } from "@/services/auth";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -10,15 +11,17 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulating authentication
-        if (email === "admin@helem.com" && password === "admin123") {
-            // Set a simple cookie or local storage to simulate session
-            localStorage.setItem("isAdmin", "true");
+        setError("");
+
+        try {
+            await authService.login(email, password);
+            // Login successful (cookie set by backend)
             router.push("/admin");
-        } else {
-            setError("Credenciais inválidas. Tente admin@helem.com / admin123");
+        } catch (err: any) {
+            console.error(err);
+            setError("Credenciais inválidas. Verifique seu email e senha.");
         }
     };
 
