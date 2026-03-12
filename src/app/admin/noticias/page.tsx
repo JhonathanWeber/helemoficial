@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Loader2, FileText } from "lucide-react";
 import { postsService, Post } from "@/services/posts";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { NoticeBanner } from "@/components/ui/NoticeBanner";
 
 export default function NoticiasPage() {
     const [news, setNews] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const fetchNews = async () => {
         try {
@@ -17,7 +21,7 @@ export default function NoticiasPage() {
             setNews(data);
         } catch (error) {
             console.error("Erro ao buscar notícias:", error);
-            alert("Erro ao carregar notícias.");
+            setErrorMessage("Erro ao carregar notícias.");
         } finally {
             setLoading(false);
         }
@@ -27,21 +31,41 @@ export default function NoticiasPage() {
         fetchNews();
     }, []);
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Tem certeza que deseja excluir esta notícia?")) return;
+    const handleDelete = async () => {
+        if (!pendingDeleteId) return;
 
         try {
-            setNews(prev => prev.filter(n => n.id !== id));
-            await postsService.delete(id);
+            setDeleting(true);
+            setNews(prev => prev.filter(n => n.id !== pendingDeleteId));
+            await postsService.delete(pendingDeleteId);
+            setSuccessMessage("Notícia excluída com sucesso.");
+            setPendingDeleteId(null);
         } catch (error) {
             console.error("Erro ao excluir:", error);
-            alert("Erro ao excluir notícia.");
+            setErrorMessage("Erro ao excluir notícia.");
             fetchNews();
+        } finally {
+            setDeleting(false);
         }
     };
 
     return (
         <div>
+            {errorMessage && (
+                <NoticeBanner
+                    type="error"
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)}
+                />
+            )}
+            {successMessage && (
+                <NoticeBanner
+                    type="success"
+                    message={successMessage}
+                    onClose={() => setSuccessMessage(null)}
+                />
+            )}
+
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-800">Gerenciar Notícias</h1>
                 <Link
@@ -96,7 +120,7 @@ export default function NoticiasPage() {
                                         <Edit className="w-4 h-4" />
                                     </Link>
                                     <button
-                                        onClick={() => handleDelete(item.id)}
+                                        onClick={() => setPendingDeleteId(item.id)}
                                         className="text-red-500 hover:bg-red-50 p-2 rounded transition"
                                     >
                                         <Trash2 className="w-4 h-4" />
@@ -107,6 +131,16 @@ export default function NoticiasPage() {
                     </tbody>
                 </table>
             </div>
+
+            <ConfirmDialog
+                isOpen={Boolean(pendingDeleteId)}
+                title="Excluir notícia"
+                description="Tem certeza que deseja excluir esta notícia? Esta ação não pode ser desfeita."
+                confirmText="Excluir"
+                onCancel={() => setPendingDeleteId(null)}
+                onConfirm={handleDelete}
+                loading={deleting}
+            />
         </div>
     );
 }

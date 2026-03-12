@@ -2,10 +2,21 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { ArrowLeft, Save, Loader2, Upload, X, ImageIcon } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, Save, Loader2, X, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { postsService } from "@/services/posts";
 import { uploadService } from "@/services/upload";
+import { NoticeBanner } from "@/components/ui/NoticeBanner";
+
+type PostFormData = {
+    title: string;
+    content: string;
+    summary: string;
+    coverUrl: string;
+    fileId: string;
+    published: boolean;
+};
 
 export default function EditarNoticiaPage() {
     const router = useRouter();
@@ -16,7 +27,9 @@ export default function EditarNoticiaPage() {
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [formData, setFormData] = useState({
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [formData, setFormData] = useState<PostFormData>({
         title: "",
         content: "",
         summary: "",
@@ -32,14 +45,14 @@ export default function EditarNoticiaPage() {
                 setFormData({
                     title: post.title,
                     content: post.content,
-                    summary: (post as any).summary || "",
-                    coverUrl: (post as any).coverUrl || "",
-                    fileId: (post as any).fileId || "",
+                    summary: post.summary || "",
+                    coverUrl: post.coverUrl || "",
+                    fileId: post.fileId || "",
                     published: post.published
                 });
             } catch (error) {
                 console.error("Erro ao buscar notícia:", error);
-                alert("Erro ao carregar notícia.");
+                setErrorMessage("Erro ao carregar notícia.");
                 router.push("/admin/noticias");
             } finally {
                 setLoading(false);
@@ -54,6 +67,7 @@ export default function EditarNoticiaPage() {
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+        setErrorMessage(null);
 
         setUploading(true);
         try {
@@ -63,9 +77,10 @@ export default function EditarNoticiaPage() {
                 coverUrl: uploadRes.url,
                 fileId: uploadRes.fileId
             }));
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Erro no upload:", error);
-            alert(error.message || "Erro ao fazer upload da imagem de capa.");
+            const message = error instanceof Error ? error.message : "Erro ao fazer upload da imagem de capa.";
+            setErrorMessage(message);
         } finally {
             setUploading(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -78,14 +93,16 @@ export default function EditarNoticiaPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setErrorMessage(null);
         setSaving(true);
 
         try {
             await postsService.update(id, formData);
+            setSuccessMessage("Notícia atualizada com sucesso.");
             router.push("/admin/noticias");
         } catch (error) {
             console.error("Erro ao atualizar notícia:", error);
-            alert("Erro ao salvar alterações.");
+            setErrorMessage("Erro ao salvar alterações.");
         } finally {
             setSaving(false);
         }
@@ -101,6 +118,21 @@ export default function EditarNoticiaPage() {
 
     return (
         <div>
+            {errorMessage && (
+                <NoticeBanner
+                    type="error"
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)}
+                />
+            )}
+            {successMessage && (
+                <NoticeBanner
+                    type="success"
+                    message={successMessage}
+                    onClose={() => setSuccessMessage(null)}
+                />
+            )}
+
             <div className="flex items-center gap-4 mb-8">
                 <Link
                     href="/admin/noticias"
@@ -119,9 +151,12 @@ export default function EditarNoticiaPage() {
 
                         {formData.coverUrl ? (
                             <div className="relative aspect-video w-full max-w-md bg-gray-100 rounded-lg overflow-hidden border border-gray-200 group">
-                                <img
+                                <Image
                                     src={formData.coverUrl}
                                     alt="Capa"
+                                    fill
+                                    unoptimized
+                                    sizes="(max-width: 768px) 100vw, 768px"
                                     className="w-full h-full object-cover"
                                 />
                                 <button

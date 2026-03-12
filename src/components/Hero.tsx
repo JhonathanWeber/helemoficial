@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export function Hero() {
@@ -42,9 +43,12 @@ export function Hero() {
         <>
             {/* Background Fixo */}
             <div className="fixed top-0 left-0 w-full h-[100dvh] -z-50">
-                <img
+                <Image
                     src="/helem foto de capa.jpg"
                     alt="Helem Caminhando"
+                    fill
+                    priority
+                    sizes="100vw"
                     className="w-full h-full object-cover object-center"
                 />
                 {/* Overlay opcional para melhorar leitura do texto se a imagem for clara */}

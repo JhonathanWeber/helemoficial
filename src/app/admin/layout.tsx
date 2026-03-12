@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
 import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu } from "lucide-react";
 import { authService } from "@/services/auth";
 
@@ -20,7 +21,7 @@ export default function AdminLayout({
                 // Verify if user is authenticated with backend
                 await authService.getMe();
                 // If success, stay on page
-            } catch (error) {
+            } catch {
                 // If error (401), redirect to login
                 router.push("/login");
             }
@@ -61,7 +62,7 @@ export default function AdminLayout({
                         onClick={handleLogout}
                         className="flex items-center w-full p-3 text-red-300 hover:bg-purple-800 hover:text-red-200 rounded-lg transition"
                     >
-                        <LogOut className="w-6 h-6 min-w-[24px]" />
+                        <LogOut className="w-6 h-6 min-w-6" />
                         {isSidebarOpen && <span className="ml-3 font-medium">Sair</span>}
                     </button>
                 </div>
@@ -75,13 +76,13 @@ export default function AdminLayout({
     );
 }
 
-function NavItem({ href, icon: Icon, label, isOpen }: { href: string, icon: any, label: string, isOpen: boolean }) {
+function NavItem({ href, icon: Icon, label, isOpen }: { href: string, icon: LucideIcon, label: string, isOpen: boolean }) {
     return (
         <Link
             href={href}
             className="flex items-center p-3 text-gray-200 hover:bg-purple-800 hover:text-white rounded-lg transition"
         >
-            <Icon className="w-6 h-6 min-w-[24px]" />
+            <Icon className="w-6 h-6 min-w-6" />
             {isOpen && <span className="ml-3 font-medium">{label}</span>}
         </Link>
     );

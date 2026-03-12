@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { Newspaper, Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Post, postsService } from "@/services/posts";
+import { stripHtml } from "@/lib/sanitize-html";
 
 export function NewsSection() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -63,9 +65,12 @@ export function NewsSection() {
                             {/* Image */}
                             <div className="h-48 overflow-hidden relative bg-gray-100">
                                 {post.coverUrl ? (
-                                    <img
+                                    <Image
                                         src={post.coverUrl}
                                         alt={post.title}
+                                        fill
+                                        unoptimized
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
@@ -86,7 +91,7 @@ export function NewsSection() {
                                 </h3>
 
                                 <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
-                                    {post.summary || post.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
+                                    {post.summary || `${stripHtml(post.content).substring(0, 100)}...`}
                                 </p>
 
                                 <Link

@@ -1,8 +1,8 @@
 export const API_URL = '/api'; // Use relative path to leverage Next.js rewrites (proxy)
 
-export async function apiRequest<T = any>(
+export async function apiRequest<T = unknown>(
     endpoint: string,
-    { method = 'GET', body, headers = {} }: Omit<RequestInit, 'body'> & { body?: any } = {}
+    { method = 'GET', body, headers = {} }: Omit<RequestInit, 'body'> & { body?: unknown } = {}
 ): Promise<T> {
     const config: RequestInit = {
         method,

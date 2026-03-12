@@ -1,6 +1,7 @@
 "use client";
 
 import { Camera, Loader2 } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { galleryService, GalleryItem } from "@/services/gallery";
 
@@ -111,11 +112,16 @@ export function GallerySection() {
                                 key={`set1-${item.id}-${index}`}
                                 className="min-w-[200px] max-h-[200px] md:min-w-[480px] md:max-h-[480px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
                             >
-                                <img
-                                    src={item.imageUrl}
-                                    alt={item.title || `Galeria ${index + 1}`}
-                                    className="w-full h-full object-cover rounded-xl pointer-events-none"
-                                />
+                                <div className="relative w-full h-full">
+                                    <Image
+                                        src={item.imageUrl}
+                                        alt={item.title || `Galeria ${index + 1}`}
+                                        fill
+                                        unoptimized
+                                        sizes="(max-width: 768px) 200px, 480px"
+                                        className="w-full h-full object-cover rounded-xl pointer-events-none"
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -126,11 +132,16 @@ export function GallerySection() {
                                 key={`set2-${item.id}-${index}`}
                                 className="min-w-[200px] max-h-[200px] md:min-w-[480px] md:max-h-[480px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
                             >
-                                <img
-                                    src={item.imageUrl}
-                                    alt={item.title || `Galeria ${index + 1}`}
-                                    className="w-full h-full object-cover rounded-xl pointer-events-none"
-                                />
+                                <div className="relative w-full h-full">
+                                    <Image
+                                        src={item.imageUrl}
+                                        alt={item.title || `Galeria ${index + 1}`}
+                                        fill
+                                        unoptimized
+                                        sizes="(max-width: 768px) 200px, 480px"
+                                        className="w-full h-full object-cover rounded-xl pointer-events-none"
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>

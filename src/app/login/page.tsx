@@ -19,7 +19,7 @@ export default function LoginPage() {
             await authService.login(email, password);
             // Login successful (cookie set by backend)
             router.push("/admin");
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
             setError("Credenciais inválidas. Verifique seu email e senha.");
         }

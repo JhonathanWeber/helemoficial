@@ -1,4 +1,4 @@
-import { apiRequest, API_URL } from '@/lib/api';
+import { API_URL } from '@/lib/api';
 
 export interface UploadResponse {
     url: string;
