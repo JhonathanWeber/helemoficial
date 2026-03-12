@@ -1,4 +1,4 @@
-import { Post } from "@/services/posts";
+import type { Post } from "@/services/posts";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333";
 
