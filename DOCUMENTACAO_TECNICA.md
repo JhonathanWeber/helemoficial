@@ -182,3 +182,13 @@ Para o fluxo operacional de deploy seguro e rollback, consulte `DEPLOY_RUNBOOK.m
 ---
 
 Este projeto segue as melhores práticas de SEO, performance com WebP e Redux-free (Server State), garantindo uma experiência premium para a Helem Oficial. 🚀✨
+
+## 7. Módulo do Backoffice (Admin)
+O painel administrativo (`/admin`) passou por uma modernização arquitetural contendo:
+
+- **Dashboard Dinâmico:** Atualizado de tipagem estática para carregar estatísticas reais chamando `GET /stats/dashboard` em seu estado principal.
+- **Sistema de Feedback Avançado (Toasts):** Utilização da biblioteca `react-hot-toast` acoplada no topo do `AdminLayoutClient` para prover retornos visuais não intrusivos em operações de banco de dados (Salvar notícia, Apagar, Falha no Upload).
+- **Acessibilidade e Layout Responsivo (Sidebar):** Implementação de Menu Hamburguer acessível no mobile e adição de overlay interativo. 
+- **Sistema de "Skeleton Loading":** Prevenção de flashes brancos injetando o pseudo-esqueleto do backoffice enquando o Next.js resolve e aguarda via Cookie o resultado da autenticação base (`isAuthLoading`).
+- **Editor Rico de Texto:** Implementado via **TipTap** (WYSIWYG) em `components/ui/RichTextEditor.tsx` transformando textos em formatações completas para postagens.
+- **Categorização Semântica:** Adição de input para Categorias e lista de Tags interativas por array integradas nas rotas de CRUD.
