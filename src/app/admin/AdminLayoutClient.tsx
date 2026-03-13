@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu, X, Users } from "lucide-react";
 import { authService } from "@/services/auth";
 import { Toaster } from 'react-hot-toast';
 
@@ -17,11 +17,13 @@ export default function AdminLayout({
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
+    const [userRole, setUserRole] = useState<'ADMIN' | 'EDITOR' | null>(null);
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                await authService.getMe();
+                const user = await authService.getMe();
+                setUserRole(user.role);
                 setIsAuthLoading(false);
             } catch {
                 router.push("/login");
@@ -106,6 +108,9 @@ export default function AdminLayout({
                     <NavItem href="/admin" icon={LayoutDashboard} label="Dashboard" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
                     <NavItem href="/admin/galeria" icon={ImageIcon} label="Galeria" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
                     <NavItem href="/admin/noticias" icon={Newspaper} label="Notícias" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
+                    {userRole === 'ADMIN' && (
+                        <NavItem href="/admin/usuarios" icon={Users} label="Equipe" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
+                    )}
                 </nav>
 
                 <div className="p-4 border-t border-purple-800">

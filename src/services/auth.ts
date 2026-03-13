@@ -4,6 +4,7 @@ export interface User {
     id: string;
     name: string;
     email: string;
+    role: 'ADMIN' | 'EDITOR';
 }
 
 export interface LoginResponse {
@@ -21,7 +22,7 @@ export const authService = {
     },
 
     async getMe() {
-        return apiRequest<{ user: User }>('/auth/me');
+        return apiRequest<User>('/auth/me');
     },
 
     async logout() {
