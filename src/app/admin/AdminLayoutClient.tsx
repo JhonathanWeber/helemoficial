@@ -69,8 +69,8 @@ export default function AdminLayout({
 
             {/* Mobile overlay */}
             {isMobileOpen && (
-                <div 
-                    className="fixed inset-0 bg-black/50 z-20 md:hidden" 
+                <div
+                    className="fixed inset-0 bg-black/50 z-20 md:hidden"
                     onClick={() => setIsMobileOpen(false)}
                 />
             )}
