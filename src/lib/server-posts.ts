@@ -67,3 +67,20 @@ export async function getPublishedPostsPaginatedServer(page = 1, limit = 9): Pro
         };
     }
 }
+
+export async function getPostBySlugServer(slug: string): Promise<Post | null> {
+    try {
+        const response = await fetch(`${BACKEND_URL}/posts/slug/${slug}`, {
+            cache: "no-store",
+        });
+
+        if (!response.ok) {
+            return null;
+        }
+
+        const data = (await response.json()) as Post;
+        return data;
+    } catch {
+        return null;
+    }
+}

@@ -27,16 +27,17 @@ export function HistorySection() {
             id="historia"
             className="w-full min-h-screen flex flex-col justify-center bg-[#FAF9F6]/90 backdrop-blur-md py-16 px-6 md:px-20 relative overflow-hidden"
         >
+            <h2 className="sr-only">Trajetória na Política e Superação de Helem Christina</h2>
             {/* Header with Icon */}
             <motion.div
                 style={{ opacity, scale }}
                 className="flex flex-col items-center justify-center mb-12"
             >
-                <Key className="text-yellow-400 w-12 h-12 mb-2 rotate-45" strokeWidth={2.5} />
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-purple-900 leading-tight">
+                <Key className="text-yellow-400 w-12 h-12 mb-2 rotate-45" strokeWidth={2.5} aria-hidden="true" />
+                <div className="text-3xl md:text-4xl font-bold text-center text-purple-900 leading-tight" aria-hidden="true">
                     <span className="block text-xl font-normal text-purple-800">Conheça minha</span>
                     HISTÓRIA
-                </h2>
+                </div>
             </motion.div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center text-base md:text-lg text-gray-800">
@@ -52,7 +53,7 @@ export function HistorySection() {
                     <div className="relative z-10 w-[280px] md:w-full max-w-[500px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-500">
                         <Image
                             src="/helem foto de perfil corpo.jpg"
-                            alt="Helem Portrait"
+                            alt="Helem Christina conversando com a população sobre segurança e direitos da mulher"
                             width={500}
                             height={700}
                             priority

@@ -71,16 +71,19 @@ A comunicação é centralizada através de um wrapper da Fetch API chamado `api
 ### Serviços (`src/services/`)
 Cada domínio de dados (Auth, Gallery, Posts) possui um serviço dedicado que utiliza o `apiRequest`. Isso desacopla os componentes React da lógica de chamada HTTP direta.
 
-### Autenticação (Estado Atual vs Arquitetura)
-> ⚠️ **Nota Importante**: O código contém atualmente uma implementação mista.
+### Autenticação
+O sistema de autenticação já está implementado e integrado com a API do backend de forma segura:
 
-1.  **Implementação Atual (UI)**: 
-    - As páginas de Login (`app/login/page.tsx`) e o Layout Admin (`app/admin/layout.tsx`) estão usando uma verificação temporária baseada em `localStorage` e credenciais hardcoded (`admin@helem.com`).
-    
-2.  **Arquitetura Planejada (Services)**:
-    - O arquivo `src/services/auth.ts` já está preparado para a autenticação real.
-    - O fluxo real deve utilizar Cookies HttpOnly setados pelo backend.
-    - **TODO**: Refatorar `app/login/page.tsx` para usar `authService.login()` e remover checagem hardcoded.
+1.  **Página de Login (`app/login/page.tsx`)**:
+    - Utiliza o `authService.login()` com email e senha.
+    - O backend providencia o set de Cookies HttpOnly após o login com sucesso.
+
+2.  **Proteção de Rotas Admin (`app/admin/layout.tsx`)**:
+    - Verifica a sessão ativa chamando `authService.getMe()`.
+    - Caso a chamada falhe (HTTP 401), há o redirecionamento automático para `/login`.
+
+3.  **Logout**:
+    - Invoca `authService.logout()` no backend, que é responsável por invalidar o cookie de sessão antes do redirecionamento.
 
 ## Atualizações Recentes (Integração e Otimização) - Fev/2026
 
@@ -119,6 +122,24 @@ Cada domínio de dados (Auth, Gallery, Posts) possui um serviço dedicado que ut
 - **Tema**:
     - Cores primárias focadas em tons de roxo (`purple-900`, `purple-800`).
     - Design responsivo mobile-first.
+
+## 7. SEO e Semântica (Estratégia Helem Oficial)
+
+O projeto foi inteiramente otimizado com foco no perfil político (descrito em `PERFIL_CANDIDATA.md`), utilizando as seguintes táticas avançadas do App Router:
+
+### Metadata e Open Graph
+- **Globais (`layout.tsx`)**: Metadados configurados com base URLs dinâmicas, `title` template, e descrições com foco nas palavras-chaves: mulher de periferia, luta feminista contra violência, Maricá, Jacarezinho e PSDB-RJ.
+- **Dinâmicos (`noticias/[slug]/page.tsx`)**: Páginas de notícias convertidas para **Server Components**. Função `generateMetadata` renderiza metadados individuais e gera links OpenGraph (para boa visualização de compartilhamento no WhatsApp/Instagram) com as fotos da capa.
+
+### Dados Estruturados (JSON-LD)
+Para potencializar a leitura do Google para entidades reais e painéis ricos:
+- A Home Page (`/`) carrega o JSON-LD `Person` / `Politician`.
+- As notícias isoladas (`/noticias/[slug]`) carregam o esquema `NewsArticle` apontando as publicações como matérias jornalísticas.
+
+### Rastreabilidade (Indexing e Crawling)
+- **Sitemap Dinâmico (`sitemap.ts`)**: Automatizado via API, busca as notícias atualizadas no backend e cria mapeamento contínuo.
+- **Robots (`robots.ts`)**: Define as restrições permitindo indexação em páginas públicas e blindando o painel de administração (`/admin/*`) e o (`/login`).
+- **NoIndex Nativo (`admin/layout.tsx`)**: O layout do painel injeta um `robots: noindex` em nível de layout, barrando bots de logar conteúdo caso o robots.txt seja ignorado.
 
 ## 8. Guia de Produção (Vercel)
 
