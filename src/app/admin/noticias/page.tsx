@@ -6,6 +6,7 @@ import { postsService, Post } from "@/services/posts";
 import Link from "next/link";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { NoticeBanner } from "@/components/ui/NoticeBanner";
+import toast from "react-hot-toast";
 
 export default function NoticiasPage() {
     const [news, setNews] = useState<Post[]>([]);
@@ -38,11 +39,11 @@ export default function NoticiasPage() {
             setDeleting(true);
             setNews(prev => prev.filter(n => n.id !== pendingDeleteId));
             await postsService.delete(pendingDeleteId);
-            setSuccessMessage("Notícia excluída com sucesso.");
+            toast.success("Notícia excluída com sucesso.");
             setPendingDeleteId(null);
         } catch (error) {
             console.error("Erro ao excluir:", error);
-            setErrorMessage("Erro ao excluir notícia.");
+            toast.error("Erro ao excluir notícia.");
             fetchNews();
         } finally {
             setDeleting(false);

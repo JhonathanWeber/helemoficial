@@ -9,6 +9,7 @@ import { postsService } from "@/services/posts";
 import { uploadService } from "@/services/upload";
 import { NoticeBanner } from "@/components/ui/NoticeBanner";
 import { RichTextEditor } from "@/components/ui/RichTextEditor";
+import toast from "react-hot-toast";
 
 export default function NovaNoticiaPage() {
     const router = useRouter();
@@ -66,10 +67,11 @@ export default function NovaNoticiaPage() {
                 coverUrl: uploadRes.url,
                 fileId: uploadRes.fileId
             }));
+            toast.success("Imagem enviada com sucesso!");
         } catch (error: unknown) {
             console.error("Erro no upload:", error);
             const message = error instanceof Error ? error.message : "Erro ao fazer upload da imagem de capa.";
-            setErrorMessage(message);
+            toast.error(message);
         } finally {
             setUploading(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -87,11 +89,11 @@ export default function NovaNoticiaPage() {
 
         try {
             await postsService.create(formData);
-            setSuccessMessage("Notícia criada com sucesso.");
+            toast.success("Notícia criada com sucesso!");
             router.push("/admin/noticias");
         } catch (error) {
             console.error("Erro ao criar notícia:", error);
-            setErrorMessage("Erro ao criar notícia.");
+            toast.error("Erro ao criar notícia.");
         } finally {
             setLoading(false);
         }
