@@ -122,11 +122,42 @@ Cada domínio de dados (Auth, Gallery, Posts) possui um serviço dedicado que ut
 
 ## 8. Guia de Produção (Vercel)
 
-Para subir o frontend para a Vercel:
-1. **Conexão**: Conecte o repositório GitHub e aponte o "Root Directory" para `web`.
-2. **Variáveis de Ambiente**:
-   - `NEXT_PUBLIC_API_URL`: URL completa do seu backend no Railway (ex: `https://api-helem.up.railway.app`).
-3. **Build**: O Next.js será detectado automaticamente. O comando de build padrão (`npm run build`) já inclui as otimizações necessárias.
+Para subir o frontend para a Vercel, você pode usar o painel web ou a **Vercel CLI**.
 
-> [!TIP]
-> O projeto utiliza Proxy (Rewrites) no Next.js para evitar problemas de CORS e Cookies em produção. Certifique-se de que a variável `NEXT_PUBLIC_API_URL` esteja correta.
+### Via Vercel CLI (Recomendado)
+1. **Instalação**: `npm i -g vercel`
+2. **Login**: `vercel login`
+3. **Vincular Projeto**: `vercel link`
+4. **Configurar Variável**: `vercel env add NEXT_PUBLIC_API_URL production` (Valor: URL da sua API na Railway)
+5. **Deploy**: `vercel --prod`
+
+### Variáveis de Ambiente Necessárias
+- `NEXT_PUBLIC_API_URL`: URL completa do seu backend no Railway (ex: `https://helem-api-production.up.railway.app`).
+
+> [!IMPORTANT]
+> O projeto utiliza Proxy (Rewrites) no Next.js (`next.config.ts`) para centralizar as chamadas na rota `/api`. A variável `NEXT_PUBLIC_API_URL` deve ser configurada na Vercel para que o build aponte para o servidor correto. Após alterar qualquer variável prefixada com `NEXT_PUBLIC_`, é necessário realizar um **Redeploy** (ou `vercel --prod`) para que as mudanças façam efeito.
+
+## 9. Testes Automatizados
+
+### Execução
+```bash
+npm test
+```
+
+### Contrato de Variáveis de Ambiente
+Foi adicionada uma rotina de teste para evitar criação acidental de novas variáveis de ambiente no frontend.
+
+- Arquivo de teste: `src/contracts/env-contract.test.ts`
+- Fonte de verdade atual: `NEXT_PUBLIC_API_URL`
+- O teste valida:
+    - Quais `process.env.*` aparecem no código (`src` e `next.config.ts`)
+    - Se a documentação técnica menciona a variável permitida
+
+Se uma nova variável for usada no código sem atualização explícita do contrato/documentação, a suíte falha.
+
+### Runbook de Deploy
+Para o fluxo operacional de deploy seguro e rollback, consulte `DEPLOY_RUNBOOK.md`.
+
+---
+
+Este projeto segue as melhores práticas de SEO, performance com WebP e Redux-free (Server State), garantindo uma experiência premium para a Helem Oficial. 🚀✨

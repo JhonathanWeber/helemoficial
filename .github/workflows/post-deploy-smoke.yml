@@ -1,0 +1,42 @@
+name: Post Deploy Smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      FRONTEND_URL: ${{ vars.FRONTEND_PROD_URL || 'https://helemoficial.com' }}
+    steps:
+      - name: Wait for platform deployment
+        run: sleep 20
+
+      - name: Smoke check
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          check_url() {
+            local url="$1"
+            local attempts=12
+            local wait_seconds=10
+
+            for ((i=1; i<=attempts; i++)); do
+              if curl -fsS "$url" > /dev/null; then
+                echo "[OK] $url"
+                return 0
+              fi
+
+              echo "[Tentativa $i/$attempts] Falhou: $url"
+              sleep "$wait_seconds"
+            done
+
+            echo "[ERRO] Smoke test falhou: $url"
+            return 1
+          }
+
+          check_url "$FRONTEND_URL"
+          check_url "$FRONTEND_URL/noticias"
