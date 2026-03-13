@@ -29,14 +29,14 @@ export default function AdminDashboard() {
                     <div className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                         <div className="flex items-center space-x-3">
                             <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                            <span className="text-gray-600">Nova notícia publicada: "Encontro com Lideranças"</span>
+                            <span className="text-gray-600">Nova notícia publicada: &quot;Encontro com Lideranças&quot;</span>
                         </div>
                         <span className="text-xs text-gray-400">Há 2 horas</span>
                     </div>
                     <div className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                         <div className="flex items-center space-x-3">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span className="text-gray-600">5 novas fotos adicionadas à galeria "Campanha 2024"</span>
+                            <span className="text-gray-600">5 novas fotos adicionadas à galeria &quot;Campanha 2024&quot;</span>
                         </div>
                         <span className="text-xs text-gray-400">Há 5 horas</span>
                     </div>

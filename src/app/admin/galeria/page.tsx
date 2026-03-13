@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { Plus, Trash2, Upload, Loader2, ImageIcon } from "lucide-react";
 import { galleryService, GalleryItem } from "@/services/gallery";
 import { uploadService } from "@/services/upload";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { NoticeBanner } from "@/components/ui/NoticeBanner";
 
 export default function GaleriaPage() {
     const [photos, setPhotos] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const fetchPhotos = async () => {
         try {
@@ -17,7 +24,7 @@ export default function GaleriaPage() {
             setPhotos(data);
         } catch (error) {
             console.error("Erro ao buscar fotos:", error);
-            alert("Erro ao carregar a galeria.");
+            setErrorMessage("Erro ao carregar a galeria.");
         } finally {
             setLoading(false);
         }
@@ -27,17 +34,22 @@ export default function GaleriaPage() {
         fetchPhotos();
     }, []);
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Tem certeza que deseja excluir esta foto?")) return;
+    const handleDelete = async () => {
+        if (!pendingDeleteId) return;
 
         try {
+            setDeleting(true);
             // Optimistic update
-            setPhotos(prev => prev.filter(p => p.id !== id));
-            await galleryService.delete(id);
+            setPhotos(prev => prev.filter(p => p.id !== pendingDeleteId));
+            await galleryService.delete(pendingDeleteId);
+            setSuccessMessage("Foto excluída com sucesso.");
+            setPendingDeleteId(null);
         } catch (error) {
             console.error("Erro ao excluir:", error);
-            alert("Erro ao excluir foto.");
+            setErrorMessage("Erro ao excluir foto.");
             fetchPhotos(); // Revert on error
+        } finally {
+            setDeleting(false);
         }
     };
 
@@ -58,9 +70,10 @@ export default function GaleriaPage() {
             });
 
             setPhotos(prev => [newPhoto, ...prev]);
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Erro no upload:", error);
-            alert(error.message || "Erro ao fazer upload da imagem.");
+            const message = error instanceof Error ? error.message : "Erro ao fazer upload da imagem.";
+            setErrorMessage(message);
         } finally {
             setUploading(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -69,6 +82,21 @@ export default function GaleriaPage() {
 
     return (
         <div>
+            {errorMessage && (
+                <NoticeBanner
+                    type="error"
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)}
+                />
+            )}
+            {successMessage && (
+                <NoticeBanner
+                    type="success"
+                    message={successMessage}
+                    onClose={() => setSuccessMessage(null)}
+                />
+            )}
+
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-800">Gerenciar Galeria</h1>
                 <button
@@ -90,7 +118,7 @@ export default function GaleriaPage() {
 
             {/* Upload Area (Drag & Drop trigger could be added here) */}
             <div
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8 border-dashed border-2 flex flex-col items-center justify-center py-12 text-gray-400 cursor-pointer hover:bg-gray-50 transition"
+                className="bg-white p-6 rounded-xl shadow-sm border-2 border-dashed border-gray-200 mb-8 flex flex-col items-center justify-center py-12 text-gray-400 cursor-pointer hover:bg-gray-50 transition"
                 onClick={() => fileInputRef.current?.click()}
             >
                 {uploading ? (
@@ -114,11 +142,18 @@ export default function GaleriaPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {photos.map(photo => (
                         <div key={photo.id} className="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm">
-                            <img src={photo.imageUrl} alt={photo.title || 'Foto'} className="w-full h-full object-cover" />
+                            <Image
+                                src={photo.imageUrl}
+                                alt={photo.title || "Foto"}
+                                fill
+                                unoptimized
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                                className="w-full h-full object-cover"
+                            />
 
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
                                 <button
-                                    onClick={() => handleDelete(photo.id)}
+                                    onClick={() => setPendingDeleteId(photo.id)}
                                     className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transform hover:scale-110 transition"
                                     title="Excluir"
                                 >
@@ -126,7 +161,7 @@ export default function GaleriaPage() {
                                 </button>
                             </div>
                             {photo.title && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-white text-xs truncate">
+                                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent p-3 text-white text-xs truncate">
                                     {photo.title}
                                 </div>
                             )}
@@ -134,6 +169,16 @@ export default function GaleriaPage() {
                     ))}
                 </div>
             )}
+
+            <ConfirmDialog
+                isOpen={Boolean(pendingDeleteId)}
+                title="Excluir foto"
+                description="Tem certeza que deseja excluir esta foto? Esta ação não pode ser desfeita."
+                confirmText="Excluir"
+                onCancel={() => setPendingDeleteId(null)}
+                onConfirm={handleDelete}
+                loading={deleting}
+            />
         </div>
     );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Key } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -49,9 +50,13 @@ export function HistorySection() {
                     <div className="absolute top-10 w-64 h-[70%] md:w-80 md:h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl"></div>
 
                     <div className="relative z-10 w-[280px] md:w-full max-w-[500px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-500">
-                        <img
+                        <Image
                             src="/helem foto de perfil corpo.jpg"
                             alt="Helem Portrait"
+                            width={500}
+                            height={700}
+                            priority
+                            sizes="(max-width: 768px) 280px, 500px"
                             className="w-full h-auto object-contain rounded-xl"
                         />
                     </div>

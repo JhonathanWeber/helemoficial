@@ -1,17 +1,20 @@
 export const API_URL = '/api'; // Use relative path to leverage Next.js rewrites (proxy)
 
-export async function apiRequest<T = any>(
+export async function apiRequest<T = unknown>(
     endpoint: string,
-    { method = 'GET', body, headers = {} }: Omit<RequestInit, 'body'> & { body?: any } = {}
+    { method = 'GET', body, headers = {} }: Omit<RequestInit, 'body'> & { body?: unknown } = {}
 ): Promise<T> {
+    const normalizedHeaders = new Headers(headers);
+
+    if (body !== undefined && body !== null) {
+        normalizedHeaders.set('Content-Type', 'application/json');
+    }
+
     const config: RequestInit = {
         method,
-        headers: {
-            ...(body && { 'Content-Type': 'application/json' }),
-            ...headers,
-        },
+        headers: normalizedHeaders,
         credentials: 'include', // Important to send cookies
-        ...(body && { body: JSON.stringify(body) }),
+        ...(body !== undefined && body !== null ? { body: JSON.stringify(body) } : {}),
     };
 
     const response = await fetch(`${API_URL}${endpoint}`, config);

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Instagram, Facebook, Linkedin, Youtube, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -37,9 +38,12 @@ export function Footer() {
 
             {/* Bottom Crowd Banner */}
             <div className="relative w-full h-[65vh] bg-gray-900 flex items-end justify-center">
-                <img
+                <Image
                     src="/foto_minha_caminhada_bottom.png"
                     alt="Minha caminhada com as mulheres"
+                    fill
+                    priority
+                    sizes="100vw"
                     className="absolute inset-0 w-full h-full object-cover opacity-60"
                 />
 

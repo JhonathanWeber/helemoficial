@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Calendar, Loader2 } from "lucide-react";
 import { postsService, Post } from "@/services/posts";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 
 export default function NewsDetailsPage() {
     const params = useParams();
@@ -89,9 +91,12 @@ export default function NewsDetailsPage() {
                 {/* Cover Image */}
                 {post.coverUrl && (
                     <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10">
-                        <img
+                        <Image
                             src={post.coverUrl}
                             alt={post.title}
+                            fill
+                            unoptimized
+                            sizes="(max-width: 1024px) 100vw, 1024px"
                             className="w-full h-full object-cover"
                         />
                     </div>
@@ -99,7 +104,7 @@ export default function NewsDetailsPage() {
 
                 {/* Content */}
                 <div className="prose prose-lg max-w-none text-gray-700 prose-headings:text-gray-900 prose-a:text-purple-600 hover:prose-a:text-purple-700">
-                    <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }} />
                 </div>
             </article>
         </main>

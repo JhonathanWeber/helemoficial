@@ -2,16 +2,20 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, Loader2, Upload, X, ImageIcon } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, Save, Loader2, X, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { postsService } from "@/services/posts";
 import { uploadService } from "@/services/upload";
+import { NoticeBanner } from "@/components/ui/NoticeBanner";
 
 export default function NovaNoticiaPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         title: "",
         content: "",
@@ -24,6 +28,7 @@ export default function NovaNoticiaPage() {
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+        setErrorMessage(null);
 
         setUploading(true);
         try {
@@ -33,9 +38,10 @@ export default function NovaNoticiaPage() {
                 coverUrl: uploadRes.url,
                 fileId: uploadRes.fileId
             }));
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Erro no upload:", error);
-            alert(error.message || "Erro ao fazer upload da imagem de capa.");
+            const message = error instanceof Error ? error.message : "Erro ao fazer upload da imagem de capa.";
+            setErrorMessage(message);
         } finally {
             setUploading(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -48,14 +54,16 @@ export default function NovaNoticiaPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setErrorMessage(null);
         setLoading(true);
 
         try {
             await postsService.create(formData);
+            setSuccessMessage("Notícia criada com sucesso.");
             router.push("/admin/noticias");
         } catch (error) {
             console.error("Erro ao criar notícia:", error);
-            alert("Erro ao criar notícia.");
+            setErrorMessage("Erro ao criar notícia.");
         } finally {
             setLoading(false);
         }
@@ -63,6 +71,21 @@ export default function NovaNoticiaPage() {
 
     return (
         <div>
+            {errorMessage && (
+                <NoticeBanner
+                    type="error"
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)}
+                />
+            )}
+            {successMessage && (
+                <NoticeBanner
+                    type="success"
+                    message={successMessage}
+                    onClose={() => setSuccessMessage(null)}
+                />
+            )}
+
             <div className="flex items-center gap-4 mb-8">
                 <Link
                     href="/admin/noticias"
@@ -81,9 +104,12 @@ export default function NovaNoticiaPage() {
 
                         {formData.coverUrl ? (
                             <div className="relative aspect-video w-full max-w-md bg-gray-100 rounded-lg overflow-hidden border border-gray-200 group">
-                                <img
+                                <Image
                                     src={formData.coverUrl}
                                     alt="Capa"
+                                    fill
+                                    unoptimized
+                                    sizes="(max-width: 768px) 100vw, 768px"
                                     className="w-full h-full object-cover"
                                 />
                                 <button
