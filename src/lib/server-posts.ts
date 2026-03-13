@@ -70,7 +70,7 @@ export async function getPublishedPostsPaginatedServer(page = 1, limit = 9): Pro
 
 export async function getPostBySlugServer(slug: string): Promise<Post | null> {
     try {
-        const response = await fetch(`${BACKEND_URL}/posts/slug/${slug}`, {
+        const response = await fetch(`${BACKEND_URL}/posts/${slug}`, {
             cache: "no-store",
         });
 
@@ -82,5 +82,28 @@ export async function getPostBySlugServer(slug: string): Promise<Post | null> {
         return data;
     } catch {
         return null;
+    }
+}
+
+export async function getRecentPostsServer(limit = 3, excludeId?: string): Promise<Post[]> {
+    try {
+        const url = new URL(`${BACKEND_URL}/posts/recent`);
+        url.searchParams.append('limit', limit.toString());
+        if (excludeId) {
+            url.searchParams.append('excludeId', excludeId);
+        }
+
+        const response = await fetch(url.toString(), {
+            cache: "no-store",
+        });
+
+        if (!response.ok) {
+            return [];
+        }
+
+        const data = (await response.json()) as Post[];
+        return Array.isArray(data) ? data : [];
+    } catch {
+        return [];
     }
 }

@@ -8,7 +8,10 @@ export interface Post {
     slug: string;
     coverUrl?: string; // Add coverUrl
     fileId?: string;   // Add fileId
+    category?: string;
+    tags?: string[];
     published: boolean;
+    viewsCount?: number;
     createdAt: string;
     updatedAt: string;
 }
@@ -19,6 +22,8 @@ export interface CreatePostDTO {
     summary?: string;
     coverUrl?: string;
     fileId?: string;
+    category?: string;
+    tags?: string[];
     published?: boolean;
 }
 
@@ -37,6 +42,10 @@ export const postsService = {
 
     async getById(id: string) {
         return apiRequest<Post>(`/posts/${id}`);
+    },
+
+    async trackView(id: string) {
+        return apiRequest<void>(`/posts/${id}/view`, { method: 'POST' });
     },
 
     async create(data: CreatePostDTO) {

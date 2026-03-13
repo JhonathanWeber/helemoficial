@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Plus, Edit, Trash2, Loader2, FileText } from "lucide-react";
+import { Plus, Edit, Trash2, Loader2, FileText, Eye } from "lucide-react";
 import { postsService, Post } from "@/services/posts";
 import Link from "next/link";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -82,6 +82,8 @@ export default function NoticiasPage() {
                     <thead>
                         <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 text-sm uppercase tracking-wider">
                             <th className="p-4 font-medium">Título</th>
+                            <th className="p-4 font-medium">Categoria</th>
+                            <th className="p-4 font-medium">Visualizações</th>
                             <th className="p-4 font-medium">Data</th>
                             <th className="p-4 font-medium">Status</th>
                             <th className="p-4 font-medium text-right">Ações</th>
@@ -90,13 +92,13 @@ export default function NoticiasPage() {
                     <tbody className="divide-y divide-gray-100">
                         {loading ? (
                             <tr>
-                                <td colSpan={4} className="p-8 text-center">
+                                <td colSpan={6} className="p-8 text-center">
                                     <Loader2 className="w-8 h-8 animate-spin mx-auto text-purple-600" />
                                 </td>
                             </tr>
                         ) : news.length === 0 ? (
                             <tr>
-                                <td colSpan={4} className="p-8 text-center text-gray-500">
+                                <td colSpan={6} className="p-8 text-center text-gray-500">
                                     <FileText className="w-12 h-12 mx-auto mb-2 text-gray-300" />
                                     Nenhuma notícia encontrada.
                                 </td>
@@ -104,6 +106,21 @@ export default function NoticiasPage() {
                         ) : news.map((item) => (
                             <tr key={item.id} className="hover:bg-gray-50 transition">
                                 <td className="p-4 font-medium text-gray-800">{item.title}</td>
+                                <td className="p-4">
+                                    {item.category ? (
+                                        <span className="bg-purple-50 text-purple-700 px-2 py-1 rounded text-sm">
+                                            {item.category}
+                                        </span>
+                                    ) : (
+                                        <span className="text-gray-400 text-sm">-</span>
+                                    )}
+                                </td>
+                                <td className="p-4">
+                                    <div className="flex items-center gap-1.5 text-gray-600 text-sm font-medium">
+                                        <Eye className="w-4 h-4 text-gray-400" />
+                                        {item.viewsCount || 0}
+                                    </div>
+                                </td>
                                 <td className="p-4 text-gray-500">
                                     {new Date(item.createdAt).toLocaleDateString('pt-BR')}
                                 </td>

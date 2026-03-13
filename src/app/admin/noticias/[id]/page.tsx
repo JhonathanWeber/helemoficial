@@ -8,6 +8,7 @@ import Link from "next/link";
 import { postsService } from "@/services/posts";
 import { uploadService } from "@/services/upload";
 import { NoticeBanner } from "@/components/ui/NoticeBanner";
+import { RichTextEditor } from "@/components/ui/RichTextEditor";
 
 type PostFormData = {
     title: string;
@@ -15,6 +16,8 @@ type PostFormData = {
     summary: string;
     coverUrl: string;
     fileId: string;
+    category: string;
+    tags: string[];
     published: boolean;
 };
 
@@ -35,8 +38,35 @@ export default function EditarNoticiaPage() {
         summary: "",
         coverUrl: "",
         fileId: "",
+        category: "",
+        tags: [],
         published: true
     });
+
+    const categories = [
+        "Ações Sociais",
+        "Saúde",
+        "Educação",
+        "Mulher",
+        "Eventos",
+        "Manifestos",
+        "Outros"
+    ];
+
+    const handleTagInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            const newTag = e.currentTarget.value.trim();
+            if (newTag && !formData.tags.includes(newTag)) {
+                setFormData(prev => ({ ...prev, tags: [...prev.tags, newTag] }));
+            }
+            e.currentTarget.value = '';
+        }
+    };
+
+    const removeTag = (tagToRemove: string) => {
+        setFormData(prev => ({ ...prev, tags: prev.tags.filter(tag => tag !== tagToRemove) }));
+    };
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -48,6 +78,8 @@ export default function EditarNoticiaPage() {
                     summary: post.summary || "",
                     coverUrl: post.coverUrl || "",
                     fileId: post.fileId || "",
+                    category: post.category || "",
+                    tags: post.tags || [],
                     published: post.published
                 });
             } catch (error) {
@@ -202,6 +234,41 @@ export default function EditarNoticiaPage() {
                         />
                     </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                            <select
+                                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition bg-white"
+                                value={formData.category}
+                                onChange={e => setFormData({ ...formData, category: e.target.value })}
+                            >
+                                <option value="">Selecione uma categoria...</option>
+                                {categories.map(cat => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Tags (Pressione Enter ou vírgula)</label>
+                            <input
+                                type="text"
+                                onKeyDown={handleTagInput}
+                                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                                placeholder="Adicionar tag..."
+                            />
+                            <div className="flex flex-wrap gap-2 mt-2">
+                                {formData.tags.map(tag => (
+                                    <span key={tag} className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                                        {tag}
+                                        <button type="button" onClick={() => removeTag(tag)} className="hover:text-purple-900 transition">
+                                            <X className="w-3 h-3" />
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Resumo (Opcional)</label>
                         <textarea
@@ -214,13 +281,10 @@ export default function EditarNoticiaPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Conteúdo (HTML simples)</label>
-                        <textarea
-                            required
-                            rows={10}
-                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
-                            value={formData.content}
-                            onChange={e => setFormData({ ...formData, content: e.target.value })}
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Conteúdo</label>
+                        <RichTextEditor
+                            content={formData.content}
+                            onChange={(content) => setFormData({ ...formData, content })}
                         />
                     </div>
 

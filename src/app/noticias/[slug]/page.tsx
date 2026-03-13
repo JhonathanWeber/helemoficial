@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar } from "lucide-react";
-import { getPostBySlugServer } from "@/lib/server-posts";
+import { ArrowLeft, Calendar, Newspaper } from "lucide-react";
+import { getPostBySlugServer, getRecentPostsServer } from "@/lib/server-posts";
 import { sanitizeHtml } from "@/lib/sanitize-html";
 import { Metadata } from "next";
 import Script from "next/script";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { ViewTracker } from "@/components/ViewTracker";
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -40,6 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsDetailsPage({ params }: Props) {
     const { slug } = await params;
     const post = await getPostBySlugServer(slug);
+    const recentPosts = post ? await getRecentPostsServer(3, post.id) : [];
 
     if (!post) {
         return (
@@ -72,61 +76,141 @@ export default async function NewsDetailsPage({ params }: Props) {
     };
 
     return (
-        <main className="min-h-screen bg-gray-50 pt-24 pb-16">
+        <main className="min-h-screen flex flex-col pt-24 bg-gray-50">
+            <Navbar />
             <Script
                 id="article-schema"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <article className="container mx-auto px-4 max-w-4xl">
-                {/* Header */}
-                <div className="mb-8">
-                    <Link
-                        href="/noticias"
-                        className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors mb-6 font-medium"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                        Voltar
-                    </Link>
+            <ViewTracker postId={post.id} />
 
-                    <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                        {post.title}
-                    </h1>
+            <section className="flex-grow pt-10 pb-16">
+                <article className="container mx-auto px-4 max-w-4xl">
+                    {/* Header */}
+                    <div className="mb-8">
+                        <Link
+                            href="/noticias"
+                            className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors mb-6 font-medium"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            Voltar
+                        </Link>
 
-                    <div className="flex items-center text-gray-500 gap-2 mb-8">
-                        <Calendar className="w-5 h-5" />
-                        <time dateTime={post.createdAt.toString()}>
-                            {new Intl.DateTimeFormat('pt-BR', {
-                                day: '2-digit',
-                                month: 'long',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            }).format(new Date(post.createdAt))}
-                        </time>
+                        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+                            {post.title}
+                        </h1>
+
+                        <div className="flex flex-wrap items-center text-gray-500 gap-4 mb-8">
+                            <div className="flex items-center gap-2">
+                                <Calendar className="w-5 h-5" />
+                                <time dateTime={post.createdAt.toString()}>
+                                    {new Intl.DateTimeFormat('pt-BR', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    }).format(new Date(post.createdAt))}
+                                </time>
+                            </div>
+                            {post.category && (
+                                <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+                                    {post.category}
+                                </span>
+                            )}
+                        </div>
                     </div>
-                </div>
 
-                {/* Cover Image */}
-                {post.coverUrl && (
-                    <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10">
-                        <Image
-                            src={post.coverUrl}
-                            alt={`Imagem da notícia: ${post.title} - Helem Christina`}
-                            fill
-                            unoptimized
-                            sizes="(max-width: 1024px) 100vw, 1024px"
-                            className="w-full h-full object-cover"
-                            priority
-                        />
+                    {/* Cover Image */}
+                    {post.coverUrl && (
+                        <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10">
+                            <Image
+                                src={post.coverUrl}
+                                alt={`Imagem da notícia: ${post.title} - Helem Christina`}
+                                fill
+                                unoptimized
+                                sizes="(max-width: 1024px) 100vw, 1024px"
+                                className="w-full h-full object-cover"
+                                priority
+                            />
+                        </div>
+                    )}
+
+                    {/* Content */}
+                    <div className="prose prose-lg max-w-none text-gray-700 prose-headings:text-gray-900 prose-a:text-purple-600 hover:prose-a:text-purple-700">
+                        <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }} />
                     </div>
-                )}
 
-                {/* Content */}
-                <div className="prose prose-lg max-w-none text-gray-700 prose-headings:text-gray-900 prose-a:text-purple-600 hover:prose-a:text-purple-700">
-                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }} />
-                </div>
-            </article>
+                    {/* Tags */}
+                    {post.tags && post.tags.length > 0 && (
+                        <div className="mt-12 pt-8 border-t border-gray-100">
+                            <h3 className="text-sm uppercase tracking-wider font-bold text-gray-500 mb-4">Tags relacionadas</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {post.tags.map(tag => (
+                                    <span key={tag} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </article>
+            </section>
+
+            {/* Artigos Relacionados / Recentes */}
+            {recentPosts.length > 0 && (
+                <section className="bg-white py-16 border-t border-gray-100">
+                    <div className="container mx-auto px-4 max-w-6xl">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center md:text-left">
+                            Leia também
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                            {recentPosts.map((recentPost) => (
+                                <Link
+                                    key={recentPost.id}
+                                    href={`/noticias/${recentPost.slug}`}
+                                    className="group bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col"
+                                >
+                                    <div className="h-48 relative bg-gray-200 overflow-hidden">
+                                        {recentPost.coverUrl ? (
+                                            <Image
+                                                src={recentPost.coverUrl}
+                                                alt={recentPost.title}
+                                                fill
+                                                unoptimized
+                                                sizes="(max-width: 768px) 100vw, 33vw"
+                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                                <Newspaper className="w-8 h-8" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="p-5 flex flex-col flex-grow">
+                                        <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
+                                            <Calendar className="w-3 h-3" />
+                                            <time dateTime={new Date(recentPost.createdAt).toISOString()}>
+                                                {new Intl.DateTimeFormat("pt-BR", {
+                                                    day: "2-digit",
+                                                    month: "long",
+                                                    year: "numeric",
+                                                }).format(new Date(recentPost.createdAt))}
+                                            </time>
+                                        </div>
+                                        <h3 className="font-bold text-gray-900 group-hover:text-purple-700 transition-colors line-clamp-2">
+                                            {recentPost.title}
+                                        </h3>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            <Footer />
         </main>
     );
 }
