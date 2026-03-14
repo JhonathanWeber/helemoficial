@@ -83,6 +83,14 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                                         year: "numeric",
                                                     }).format(new Date(post.createdAt))}
                                                 </time>
+                                                {post.category && (
+                                                    <>
+                                                        <span className="text-gray-300">•</span>
+                                                        <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs font-medium">
+                                                            {post.category}
+                                                        </span>
+                                                    </>
+                                                )}
                                             </div>
 
                                             <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h2>
