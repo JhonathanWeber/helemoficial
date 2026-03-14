@@ -64,7 +64,7 @@ export default function AdminDashboard() {
                     {data?.recentActivity?.length === 0 ? (
                         <p className="text-gray-500 text-sm py-2">Nenhuma atividade recente.</p>
                     ) : (
-                        data?.recentActivity?.map((activity, index) => (
+                        data?.recentActivity?.map((activity) => (
                             <div key={activity.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                                 <div className="flex items-center space-x-3">
                                     <div className={`w-2 h-2 rounded-full ${activity.type === 'post' ? 'bg-green-500' : 'bg-blue-500'}`}></div>
