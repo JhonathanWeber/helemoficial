@@ -23,23 +23,34 @@ const indieFlower = Indie_Flower({
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://helemoficial.com"),
   title: {
     template: "%s | Helem Christina",
-    default: "Helem Christina | Pré-candidata a Deputada Federal - RJ",
+    default: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
   },
-  description: "Conheça a história de Helem Christina. Mulher negra de periferia, mãe, criada no Jacarezinho. Uma voz incansável na luta contra a violência feminina e na defesa do Rio de Janeiro.",
-  keywords: ["Helem Christina", "Deputada Federal", "PSDB RJ", "Defesa da Mulher", "Combate à Violência contra a Mulher", "Rio de Janeiro", "Jacarezinho", "Maricá", "Política"],
+  description:
+    "Conheça a história de Helem Christina. Mulher negra de periferia, mãe, criada no Jacarezinho. Uma voz incansável na luta contra a violência feminina e na defesa do Rio de Janeiro.",
+  keywords: [
+    "Helem Christina",
+    "Deputada Estadual",
+    "PSDB RJ",
+    "Defesa da Mulher",
+    "Combate à Violência contra a Mulher",
+    "Rio de Janeiro",
+    "Jacarezinho",
+    "Maricá",
+    "Política",
+  ],
   authors: [{ name: "Helem Christina" }],
   creator: "Helem Christina",
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: "/",
-    title: "Helem Christina | Pré-candidata a Deputada Federal - RJ",
-    description: "A dor virou luta. Junte-se à fortaleza de Helem Christina pelas mulheres do Rio de Janeiro.",
+    title: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
+    description:
+      "A dor virou luta. Junte-se à fortaleza de Helem Christina pelas mulheres do Rio de Janeiro.",
     siteName: "Helem Christina",
     images: [
       {
@@ -52,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Helem Christina | Pré-candidata a Deputada Federal",
+    title: "Helem Christina | Pré-candidata a Deputada Estadual",
     description: "A dor virou luta. Vem lutar com a gente. #Elas e suas fortalezas.",
     images: ["/helem foto de capa.jpg"],
   },
