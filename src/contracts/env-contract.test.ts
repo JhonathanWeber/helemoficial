@@ -2,7 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-const FRONTEND_ALLOWED_ENV_VARS = ["NEXT_PUBLIC_API_URL"] as const;
+const FRONTEND_ALLOWED_ENV_VARS = ["NEXT_PUBLIC_API_URL", "NEXT_PUBLIC_WHATSAPP_URL"] as const;
+const FRONTEND_BUILT_IN_ENV_VARS = new Set(["NODE_ENV"]);
 
 function collectFilesRecursively(dirPath: string, extensions: string[]) {
     const result: string[] = [];
@@ -45,7 +46,9 @@ describe("frontend env contract", () => {
         for (const filePath of files) {
             const content = fs.readFileSync(filePath, "utf8");
             for (const envVar of extractEnvVarsFromContent(content)) {
-                discovered.add(envVar);
+                if (!FRONTEND_BUILT_IN_ENV_VARS.has(envVar)) {
+                    discovered.add(envVar);
+                }
             }
         }
 

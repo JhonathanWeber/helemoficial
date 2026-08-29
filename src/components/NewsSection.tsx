@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Post, postsService } from "@/services/posts";
 import { stripHtml } from "@/lib/sanitize-html";
+import { editorialPreviewEnabled, localEditorialPosts } from "@/data/editorial-preview";
 
 export function NewsSection() {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -16,10 +17,11 @@ export function NewsSection() {
             try {
                 // Fetch published posts (default endpoint returns published: true)
                 const data = await postsService.getAll();
-                // Take only the latest 3 posts
-                setPosts(data.slice(0, 3));
+                // In development, show the reviewed editorial drafts first without publishing them.
+                setPosts(editorialPreviewEnabled ? [...localEditorialPosts, ...data].slice(0, 3) : data.slice(0, 3));
             } catch (error) {
                 console.error("Erro ao buscar notícias:", error);
+                setPosts(editorialPreviewEnabled ? localEditorialPosts : []);
             } finally {
                 setLoading(false);
             }
@@ -53,6 +55,11 @@ export function NewsSection() {
                     <p className="text-gray-500 max-w-lg">
                         Acompanhe minhas ações, projetos e novidades recentes.
                     </p>
+                    {editorialPreviewEnabled && (
+                        <span className="mt-4 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                            Prévia local — não publicado
+                        </span>
+                    )}
                 </div>
 
                 {/* Grid */}
@@ -63,7 +70,7 @@ export function NewsSection() {
                             className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full group"
                         >
                             {/* Image */}
-                            <div className="h-48 overflow-hidden relative bg-gray-100">
+                            <div className="h-48 overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                 {post.coverUrl ? (
                                     <Image
                                         src={post.coverUrl}
@@ -71,7 +78,7 @@ export function NewsSection() {
                                         fill
                                         unoptimized
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                        className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400">

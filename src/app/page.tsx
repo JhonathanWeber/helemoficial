@@ -23,9 +23,9 @@ export default function Home() {
       name: "Maricá, Rio de Janeiro",
     },
     description:
-      "Mulher negra de periferia, mãe, criada no Jacarezinho, ativista na luta contra a violência feminina e pré-candidata a Deputada Estadual no RJ.",
+      "Trajetória, pautas e compromissos propostos por Helem Christina, pré-candidata a Deputada Estadual no Rio de Janeiro.",
     url: "https://helemoficial.com",
-    image: "https://helemoficial.com/helem%20foto%20de%20capa.jpg",
+    image: "https://helemoficial.com/whatsapp-image-2026-08-16-hero.jpeg",
   };
 
   return (

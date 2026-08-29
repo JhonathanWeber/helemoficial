@@ -1,8 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { Instagram, Facebook, Linkedin, Youtube, ExternalLink } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
+
+const socialLinks = [
+    {
+        label: "Instagram de Helem Cristina",
+        href: "https://www.instagram.com/helemcristinamoreiraoficial",
+        Icon: Instagram,
+        initial: { x: -50, y: 0 },
+    },
+    {
+        label: "Facebook de Helem Cristina",
+        href: "https://www.facebook.com/helen.aleksander.3",
+        Icon: Facebook,
+        initial: { x: 50, y: 0 },
+    },
+];
 
 export function Footer() {
     return (
@@ -13,16 +28,15 @@ export function Footer() {
                 <h2 className="text-3xl font-extrabold text-purple-900 mb-6">NAS REDES</h2>
 
                 <div className="flex space-x-4">
-                    {[Instagram, Youtube, ExternalLink /* TikTok alternate */, Facebook, Linkedin].map((Icon, i) => {
-                        let initial = {};
-                        if (i < 2) initial = { x: -50, y: 0 }; // Left reduced
-                        else if (i === 2) initial = { x: 0, y: 50 }; // Bottom reduced
-                        else initial = { x: 50, y: 0 }; // Right reduced
-
+                    {socialLinks.map(({ label, href, Icon, initial }, i) => {
                         return (
                             <motion.a
-                                key={i}
-                                href="#"
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={label}
+                                title={label}
                                 initial={{ ...initial, opacity: 0, scale: 0.5, filter: "blur(10px)" }}
                                 whileInView={{ x: 0, y: 0, opacity: 1, scale: 1, filter: "blur(0px)" }}
                                 viewport={{ once: false, amount: 0.2 }}

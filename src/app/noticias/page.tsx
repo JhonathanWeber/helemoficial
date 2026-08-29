@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getPublishedPostsPaginatedServer } from "@/lib/server-posts";
 import { stripHtml } from "@/lib/sanitize-html";
+import { editorialPreviewEnabled, localEditorialPosts } from "@/data/editorial-preview";
 
 type NoticiasPageProps = {
     searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -16,7 +17,18 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
     const pageRaw = Array.isArray(pageParam) ? pageParam[0] : pageParam;
     const currentPage = Math.max(1, Number(pageRaw || "1") || 1);
 
-    const { data: posts, pagination } = await getPublishedPostsPaginatedServer(currentPage, 9);
+    const remoteResult = await getPublishedPostsPaginatedServer(currentPage, 9);
+    const posts = editorialPreviewEnabled ? localEditorialPosts : remoteResult.data;
+    const pagination = editorialPreviewEnabled
+        ? {
+            page: 1,
+            limit: posts.length,
+            total: posts.length,
+            totalPages: 1,
+            hasNext: false,
+            hasPrev: false,
+        }
+        : remoteResult.pagination;
 
     const buildPageHref = (page: number) => `/noticias?page=${page}`;
 
@@ -41,6 +53,11 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                         <p className="text-gray-600 max-w-2xl mx-auto">
                             Acompanhe ações, projetos e atualizações mais recentes.
                         </p>
+                        {editorialPreviewEnabled && (
+                            <span className="inline-flex mt-4 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                                Prévia local — não publicado
+                            </span>
+                        )}
                     </div>
 
                     {posts.length === 0 ? (
@@ -56,7 +73,7 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                         key={post.id}
                                         className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col"
                                     >
-                                        <div className="h-52 relative bg-gray-100">
+                                        <div className="h-52 relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                             {post.coverUrl ? (
                                                 <Image
                                                     src={post.coverUrl}
@@ -64,7 +81,7 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                                     fill
                                                     unoptimized
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                    className="object-cover"
+                                                    className="object-contain"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-gray-300">

@@ -52,6 +52,8 @@ O projeto depende de variáveis de ambiente para conectar com o backend. Crie um
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:3333
+# Opcional: substitui o número de fallback do CTA do WhatsApp no menu
+NEXT_PUBLIC_WHATSAPP_URL=https://wa.me/5521978799191
 ```
 
 ### Rodando o Projeto

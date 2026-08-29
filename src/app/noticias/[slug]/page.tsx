@@ -8,6 +8,11 @@ import Script from "next/script";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ViewTracker } from "@/components/ViewTracker";
+import {
+    editorialPreviewEnabled,
+    getLocalEditorialPost,
+    getLocalEditorialRecentPosts,
+} from "@/data/editorial-preview";
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -15,7 +20,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const post = await getPostBySlugServer(slug);
+    const remotePost = await getPostBySlugServer(slug);
+    const post = remotePost ?? (editorialPreviewEnabled ? getLocalEditorialPost(slug) : null);
 
     if (!post) {
         return {
@@ -42,8 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NewsDetailsPage({ params }: Props) {
     const { slug } = await params;
-    const post = await getPostBySlugServer(slug);
-    const recentPosts = post ? await getRecentPostsServer(3, post.id) : [];
+    const remotePost = await getPostBySlugServer(slug);
+    const post = remotePost ?? (editorialPreviewEnabled ? getLocalEditorialPost(slug) : null);
+    const recentPosts = post
+        ? remotePost
+            ? await getRecentPostsServer(3, post.id)
+            : getLocalEditorialRecentPosts(post.id)
+        : [];
 
     if (!post) {
         return (
@@ -119,19 +130,24 @@ export default async function NewsDetailsPage({ params }: Props) {
                                     {post.category}
                                 </span>
                             )}
+                            {editorialPreviewEnabled && !remotePost && (
+                                <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    Prévia local — não publicado
+                                </span>
+                            )}
                         </div>
                     </div>
 
                     {/* Cover Image */}
                     {post.coverUrl && (
-                        <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10">
+                        <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10 bg-gradient-to-br from-purple-100 via-white to-orange-100">
                             <Image
                                 src={post.coverUrl}
                                 alt={`Imagem da notícia: ${post.title} - Helem Christina`}
                                 fill
                                 unoptimized
                                 sizes="(max-width: 1024px) 100vw, 1024px"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                                 priority
                             />
                         </div>
@@ -172,7 +188,7 @@ export default async function NewsDetailsPage({ params }: Props) {
                                     href={`/noticias/${recentPost.slug}`}
                                     className="group bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col"
                                 >
-                                    <div className="h-48 relative bg-gray-200 overflow-hidden">
+                                    <div className="h-48 relative bg-gradient-to-br from-purple-100 via-white to-orange-100 overflow-hidden">
                                         {recentPost.coverUrl ? (
                                             <Image
                                                 src={recentPost.coverUrl}
@@ -180,7 +196,7 @@ export default async function NewsDetailsPage({ params }: Props) {
                                                 fill
                                                 unoptimized
                                                 sizes="(max-width: 768px) 100vw, 33vw"
-                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                className="object-contain group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-400">

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Menu, X, User } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
+const whatsappUrl = process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/5521978799191";
+
 export function Navbar() {
     const [isVisible, setIsVisible] = useState(true);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,27 +52,29 @@ export function Navbar() {
         <header
             className={`fixed top-0 left-0 z-50 bg-[#6D28D9] bg-helem-purple-mid w-full text-white h-24 flex justify-between items-center pl-6 md:pl-12 pr-6 md:pr-0 transition-transform duration-300 ${isVisible ? 'translate-y-0 shadow-lg' : '-translate-y-full'}`}
         >
-            <div className="text-4xl font-cursive">
+            <div className="text-4xl font-cursive font-bold">
                 Helem Christina
             </div>
 
             {/* Desktop Menu */}
             <nav className="hidden md:flex space-x-8 items-center text-xs tracking-wider uppercase h-full">
-                <Link href="#historia" className="hover:text-yellow-300 transition">Minha História</Link>
-                <Link href="#bandeiras" className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
-                <Link href="#galeria" className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
+                <Link href="/#historia" className="hover:text-yellow-300 transition">Minha História</Link>
+                <Link href="/#bandeiras" className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
+                <Link href="/#galeria" className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
                 <Link href="/login" className="text-white/30 hover:text-white transition" title="Login Integrante">
                     <User className="w-5 h-5" />
                 </Link>
             </nav>
 
             <div className="hidden md:flex h-full items-stretch">
-                <button className="bg-orange-400 hover:bg-orange-500 text-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center">
+                <a
+                    href={whatsappUrl || "/#contato"}
+                    target={whatsappUrl ? "_blank" : undefined}
+                    rel={whatsappUrl ? "noopener noreferrer" : undefined}
+                    className="bg-orange-400 hover:bg-orange-500 text-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center"
+                >
                     Whatsapp
-                </button>
-                <button className="bg-pink-100 text-purple-800 hover:bg-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center">
-                    Fale comigo!
-                </button>
+                </a>
             </div>
 
             {/* Mobile Menu Icon */}
@@ -91,21 +95,24 @@ export function Navbar() {
                     </div>
 
                     <nav className="flex flex-col items-center space-y-8 mt-10 text-lg uppercase tracking-wider font-bold">
-                        <Link href="#historia" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minha História</Link>
-                        <Link href="#bandeiras" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
-                        <Link href="#galeria" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
+                        <Link href="/#historia" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minha História</Link>
+                        <Link href="/#bandeiras" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
+                        <Link href="/#galeria" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
                         <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-white/30 hover:text-white transition pt-4">
                             <User className="w-6 h-6" />
                         </Link>
                     </nav>
 
                     <div className="mt-auto flex flex-col">
-                        <button className="bg-orange-400 hover:bg-orange-500 text-white py-6 text-sm font-bold uppercase transition">
+                        <a
+                            href={whatsappUrl || "/#contato"}
+                            target={whatsappUrl ? "_blank" : undefined}
+                            rel={whatsappUrl ? "noopener noreferrer" : undefined}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="bg-orange-400 hover:bg-orange-500 text-white py-6 text-sm font-bold uppercase transition text-center"
+                        >
                             Whatsapp
-                        </button>
-                        <button className="bg-pink-100 text-purple-800 hover:bg-white py-6 text-sm font-bold uppercase transition">
-                            Fale comigo!
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 
 Este documento centraliza as diretrizes de narrativa, identidade e tom de voz da pré-campanha de Helem Christina. Ele deve ser utilizado como base (Source of Truth) para criação de artigos, copys para UI, SEO, metadados e conteúdos de rede social abordados pela aplicação web.
 
+> **Controle editorial:** relatos de violência, trauma, maternidade, origem, liderança de grupos e números de impacto exigem autorização expressa da equipe e fonte identificada antes de aparecerem como fatos em páginas públicas. Enquanto não houver confirmação, usar linguagem de declaração da própria candidatura ou manter o trecho apenas como rascunho interno.
+
 ## 1. Visão Geral
 
 - **Nome Completo:** Helem Christina

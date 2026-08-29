@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     default: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
   },
   description:
-    "Conheça a história de Helem Christina. Mulher negra de periferia, mãe, criada no Jacarezinho. Uma voz incansável na luta contra a violência feminina e na defesa do Rio de Janeiro.",
+    "Conheça a trajetória, as pautas e os compromissos propostos por Helem Christina para o Rio de Janeiro.",
   keywords: [
     "Helem Christina",
     "Deputada Estadual",
@@ -50,22 +50,22 @@ export const metadata: Metadata = {
     url: "/",
     title: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
     description:
-      "A dor virou luta. Junte-se à fortaleza de Helem Christina pelas mulheres do Rio de Janeiro.",
+      "Conheça as pautas e os compromissos propostos por Helem Christina para as mulheres e os territórios do Rio de Janeiro.",
     siteName: "Helem Christina",
     images: [
       {
-        url: "/helem foto de capa.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Helem Christina - #Elas e suas fortalezas!",
+        url: "/whatsapp-image-2026-08-16-hero.jpeg",
+        width: 1366,
+        height: 768,
+        alt: "Arte oficial de pré-campanha de Helem Cristina para deputada estadual no Rio de Janeiro, número 45789",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Helem Christina | Pré-candidata a Deputada Estadual",
-    description: "A dor virou luta. Vem lutar com a gente. #Elas e suas fortalezas.",
-    images: ["/helem foto de capa.jpg"],
+    description: "Conheça a trajetória e os compromissos propostos por Helem Christina. #Elas e suas fortalezas.",
+    images: ["/whatsapp-image-2026-08-16-hero.jpeg"],
   },
   alternates: {
     canonical: "/",
