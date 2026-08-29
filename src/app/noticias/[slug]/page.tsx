@@ -31,10 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return {
         title: `${post.title} | Helem Christina`,
-        description: post.summary || `Leia sobre: ${post.title}. Helem Christina, mulher de luta e coragem.`,
+            description: post.summary || `Leia sobre: ${post.title}. Conheça as pautas e os compromissos propostos por Helem Cristina.`,
         openGraph: {
             title: `${post.title} | Helem Christina`,
-            description: post.summary || `Confira essa notícia sobre o trabalho e a luta de Helem Christina.`,
+                description: post.summary || `Confira esta notícia sobre a trajetória e as pautas de Helem Cristina.`,
             images: post.coverUrl ? [{ url: post.coverUrl }] : [],
             type: "article",
             publishedTime: new Date(post.createdAt).toISOString(),
