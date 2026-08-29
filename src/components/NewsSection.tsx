@@ -38,7 +38,7 @@ export function NewsSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full">
-                                <div className="h-48 w-full skeleton"></div>
+                                <div className="aspect-[4/3] w-full skeleton sm:aspect-video"></div>
                                 <div className="p-6 flex flex-col gap-3">
                                     <div className="h-6 w-3/4 skeleton rounded"></div>
                                     <div className="h-4 w-full skeleton rounded mt-3"></div>
@@ -98,7 +98,7 @@ export function NewsSection() {
                             className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col h-full group"
                         >
                             {/* Image */}
-                            <div className="h-52 sm:h-48 overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
+                            <div className="aspect-[4/3] sm:aspect-video overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                 {post.coverUrl ? (
                                     <Image
                                         src={post.coverUrl}

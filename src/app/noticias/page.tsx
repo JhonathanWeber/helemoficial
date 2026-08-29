@@ -73,7 +73,7 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                         key={post.id}
                                         className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col"
                                     >
-                                        <div className="h-52 relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
+                                        <div className="aspect-[4/3] sm:aspect-video relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                             {post.coverUrl ? (
                                                 <Image
                                                     src={post.coverUrl}

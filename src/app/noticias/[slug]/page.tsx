@@ -188,7 +188,7 @@ export default async function NewsDetailsPage({ params }: Props) {
                                     href={`/noticias/${recentPost.slug}`}
                                     className="group bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col"
                                 >
-                                    <div className="h-48 relative bg-gradient-to-br from-purple-100 via-white to-orange-100 overflow-hidden">
+                                    <div className="aspect-[4/3] sm:aspect-video relative bg-gradient-to-br from-purple-100 via-white to-orange-100 overflow-hidden">
                                         {recentPost.coverUrl ? (
                                             <Image
                                                 src={recentPost.coverUrl}
