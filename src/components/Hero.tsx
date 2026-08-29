@@ -14,7 +14,7 @@ export function Hero() {
 
     return (
         <section ref={ref} className="relative w-full min-h-[calc(100dvh-6rem)]">
-            <motion.div style={{ y }} className="fixed inset-0 -z-50 h-[100dvh] w-full bg-gradient-to-r from-[#5367f4] via-[#ab58d2] to-[#ed7f9f]">
+            <motion.div style={{ y }} className="fixed left-0 right-0 top-24 bottom-0 -z-50 w-full bg-gradient-to-r from-[#5367f4] via-[#ab58d2] to-[#ed7f9f] md:inset-0 md:h-[100dvh]">
                 {/* Animated gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/40 via-transparent to-pink-500/30 animate-glow-pulse mix-blend-overlay z-10 pointer-events-none"></div>
                 <picture className="absolute inset-0 block">
