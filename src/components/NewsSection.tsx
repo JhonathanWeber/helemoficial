@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Newspaper, Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Post, postsService } from "@/services/posts";
 import { stripHtml } from "@/lib/sanitize-html";
 import { editorialPreviewEnabled, localEditorialPosts } from "@/data/editorial-preview";
@@ -32,8 +33,22 @@ export function NewsSection() {
 
     if (loading) {
         return (
-            <section className="py-20 bg-white min-h-[400px] flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            <section className="py-20 bg-white min-h-[400px] flex flex-col items-center justify-center">
+                <div className="container mx-auto px-6 md:px-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full">
+                                <div className="h-48 w-full skeleton"></div>
+                                <div className="p-6 flex flex-col gap-3">
+                                    <div className="h-6 w-3/4 skeleton rounded"></div>
+                                    <div className="h-4 w-full skeleton rounded mt-3"></div>
+                                    <div className="h-4 w-5/6 skeleton rounded"></div>
+                                    <div className="h-4 w-1/4 skeleton rounded mt-4"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
         );
     }
@@ -63,14 +78,27 @@ export function NewsSection() {
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {posts.map((post) => (
-                        <article
+                <motion.div
+                    variants={{
+                        hidden: {},
+                        show: {}
+                    }}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {posts.map((post, idx) => (
+                        <motion.article
                             key={post.id}
-                            className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full group"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1, duration: 0.5 }}
+                            className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col h-full group"
                         >
                             {/* Image */}
-                            <div className="h-48 overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
+                            <div className="h-52 sm:h-48 overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                 {post.coverUrl ? (
                                     <Image
                                         src={post.coverUrl}
@@ -78,7 +106,7 @@ export function NewsSection() {
                                         fill
                                         unoptimized
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                                        className="w-full h-full object-contain object-center transform group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -109,9 +137,9 @@ export function NewsSection() {
                                     <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
                                 </Link>
                             </div>
-                        </article>
+                        </motion.article>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* View All Button */}
                 <div className="mt-12 text-center">

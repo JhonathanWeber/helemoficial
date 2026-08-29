@@ -71,7 +71,7 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                 {posts.map((post) => (
                                     <article
                                         key={post.id}
-                                        className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col"
+                                        className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col"
                                     >
                                         <div className="h-52 relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
                                             {post.coverUrl ? (
@@ -81,7 +81,7 @@ export default async function NoticiasPage({ searchParams }: NoticiasPageProps) 
                                                     fill
                                                     unoptimized
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                    className="object-contain"
+                                                    className="object-contain object-center"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-gray-300">

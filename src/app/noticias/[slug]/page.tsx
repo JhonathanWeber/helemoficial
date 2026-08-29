@@ -25,20 +25,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!post) {
         return {
-            title: "Notícia não encontrada | Helem Christina",
+            title: "Notícia não encontrada | Helem Cristina",
         };
     }
 
     return {
-        title: `${post.title} | Helem Christina`,
-            description: post.summary || `Leia sobre: ${post.title}. Conheça as pautas e os compromissos propostos por Helem Cristina.`,
+        title: `${post.title} | Helem Cristina`,
+        description: post.summary || `Leia sobre: ${post.title}. Conheça as pautas e os compromissos propostos por Helem Cristina.`,
         openGraph: {
-            title: `${post.title} | Helem Christina`,
-                description: post.summary || `Confira esta notícia sobre a trajetória e as pautas de Helem Cristina.`,
+            title: `${post.title} | Helem Cristina`,
+            description: post.summary || `Confira esta notícia sobre a trajetória e as pautas de Helem Cristina.`,
             images: post.coverUrl ? [{ url: post.coverUrl }] : [],
             type: "article",
             publishedTime: new Date(post.createdAt).toISOString(),
-            authors: ["Helem Christina"],
+            authors: ["Helem Cristina"],
         },
         alternates: {
             canonical: `/noticias/${slug}`,
@@ -81,7 +81,7 @@ export default async function NewsDetailsPage({ params }: Props) {
         dateModified: new Date(post.updatedAt || post.createdAt).toISOString(),
         author: [{
             "@type": "Person",
-            "name": "Helem Christina",
+            "name": "Helem Cristina",
             "url": "https://helemoficial.com"
         }]
     };
@@ -143,11 +143,11 @@ export default async function NewsDetailsPage({ params }: Props) {
                         <div className="w-full aspect-video relative rounded-2xl overflow-hidden shadow-lg mb-10 bg-gradient-to-br from-purple-100 via-white to-orange-100">
                             <Image
                                 src={post.coverUrl}
-                                alt={`Imagem da notícia: ${post.title} - Helem Christina`}
+                                alt={`Imagem da notícia: ${post.title} - Helem Cristina`}
                                 fill
                                 unoptimized
                                 sizes="(max-width: 1024px) 100vw, 1024px"
-                                className="w-full h-full object-contain"
+                                className="w-full h-full object-contain object-center"
                                 priority
                             />
                         </div>
@@ -196,7 +196,7 @@ export default async function NewsDetailsPage({ params }: Props) {
                                                 fill
                                                 unoptimized
                                                 sizes="(max-width: 768px) 100vw, 33vw"
-                                                className="object-contain group-hover:scale-105 transition-transform duration-500"
+                                                className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-400">
