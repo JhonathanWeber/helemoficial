@@ -29,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col font-sans pt-24">
+    <main className="min-h-screen flex flex-col font-sans pt-16 sm:pt-20 md:pt-24">
       <Script
         id="person-schema"
         type="application/ld+json"
