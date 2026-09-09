@@ -2,14 +2,35 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-helem-purple-dark: #4c1d95; /* Deep purple */
-  --color-helem-purple-mid: #6d28d9; /* Medium purple */
-  --color-helem-purple-light: #f3e8ff; /* Light purplebg */
+  /* === Primary (Purple) — Full Scale === */
+  --color-helem-purple-50: #faf5ff;
+  --color-helem-purple-100: #f3e8ff;
+  --color-helem-purple-200: #e9d5ff;
+  --color-helem-purple-300: #d8b4fe;
+  --color-helem-purple-400: #c084fc;
+  --color-helem-purple-500: #a855f7;
+  --color-helem-purple-600: #9333ea;
+  --color-helem-purple-700: #7c3aed;
+  --color-helem-purple-800: #6d28d9;
+  --color-helem-purple-900: #5b21b6;
+  --color-helem-purple-950: #4c1d95;
+
+  /* === Legacy aliases (backward compat) === */
+  --color-helem-purple-dark: #4c1d95;
+  --color-helem-purple-mid: #6d28d9;
+  --color-helem-purple-light: #f3e8ff;
+
+  /* === Accent Colors === */
   --color-helem-accent-pink: #f472b6;
   --color-helem-orange: #f97316;
   --color-helem-yellow: #facc15;
   --color-helem-blue: #0ea5e9;
 
+  /* === Surfaces === */
+  --color-helem-surface: #faf9f6;
+  --color-helem-surface-elevated: #ffffff;
+
+  /* === Typography === */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-cursive: var(--font-caveat);
@@ -22,7 +43,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
 }
 
 /* Snap alignment for main sections */
@@ -32,12 +53,12 @@ main > div {
   scroll-snap-align: start;
 }
 
-/* Exclude the fixed Navbar (header) from taking up snap space if needed, 
-   though 'start' alignment usually ignores fixed elements' positions in flow.
-*/
+/* Exclude the fixed Navbar (header) from snap */
 header {
   scroll-snap-align: none;
 }
+
+/* === Premium Keyframes === */
 
 @keyframes scroll-left-right {
   from {
@@ -48,12 +69,86 @@ header {
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(6px) rotate(-1deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* === Premium Utilities === */
+
 .animate-scroll-right {
   animation: scroll-left-right 20s linear infinite;
 }
 
 .animate-scroll-right:hover {
   animation-play-state: paused;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Decorative dot pattern */
+.pattern-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Skeleton shimmer for loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -63,11 +158,23 @@ header {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Tiptap Editor Styles */
+/* === Accessibility — Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Tiptap Editor Styles === */
 .ProseMirror {
   outline: none;
 }

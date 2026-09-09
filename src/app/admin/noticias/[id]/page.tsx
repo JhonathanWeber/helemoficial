@@ -191,7 +191,7 @@ export default function EditarNoticiaPage() {
                                     fill
                                     unoptimized
                                     sizes="(max-width: 768px) 100vw, 768px"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover object-top"
                                 />
                                 <button
                                     type="button"

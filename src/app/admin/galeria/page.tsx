@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Plus, Trash2, Upload, Loader2, ImageIcon } from "lucide-react";
 import { galleryService, GalleryItem } from "@/services/gallery";
@@ -18,7 +18,7 @@ export default function GaleriaPage() {
     const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
     const [deleting, setDeleting] = useState(false);
 
-    const fetchPhotos = async () => {
+    const fetchPhotos = useCallback(async () => {
         try {
             const data = await galleryService.getAll();
             setPhotos(data);
@@ -28,10 +28,25 @@ export default function GaleriaPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        fetchPhotos();
+        let isMounted = true;
+        galleryService.getAll()
+            .then((data) => {
+                if (isMounted) setPhotos(data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar fotos:", error);
+                if (isMounted) setErrorMessage("Erro ao carregar a galeria.");
+            })
+            .finally(() => {
+                if (isMounted) setLoading(false);
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const handleDelete = async () => {
@@ -148,7 +163,7 @@ export default function GaleriaPage() {
                                 fill
                                 unoptimized
                                 sizes="(max-width: 768px) 50vw, 25vw"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover object-top"
                             />
 
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">

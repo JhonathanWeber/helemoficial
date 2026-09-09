@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Plus, Edit, Trash2, Loader2, FileText, Eye } from "lucide-react";
 import { postsService, Post } from "@/services/posts";
 import Link from "next/link";
@@ -16,7 +16,7 @@ export default function NoticiasPage() {
     const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
     const [deleting, setDeleting] = useState(false);
 
-    const fetchNews = async () => {
+    const fetchNews = useCallback(async () => {
         try {
             const data = await postsService.getAllAdmin();
             setNews(data);
@@ -26,10 +26,25 @@ export default function NoticiasPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        fetchNews();
+        let isMounted = true;
+        postsService.getAllAdmin()
+            .then((data) => {
+                if (isMounted) setNews(data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar notícias:", error);
+                if (isMounted) setErrorMessage("Erro ao carregar notícias.");
+            })
+            .finally(() => {
+                if (isMounted) setLoading(false);
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const handleDelete = async () => {

@@ -1,7 +1,7 @@
 # Documentação Técnica - Frontend (Web)
 
 ## 1. Visão Geral
-Este é o projeto frontend do site "Helem Christina", desenvolvido utilizando **Next.js** com **App Router**. O projeto serve tanto a landing page pública quanto o painel administrativo para gerenciamento de conteúdo.
+Este é o projeto frontend do site "Helem Cristina", desenvolvido utilizando **Next.js** com **App Router**. O projeto serve tanto a landing page pública quanto o painel administrativo para gerenciamento de conteúdo.
 
 ## 2. Stack Tecnológica
 - **Framework Core**: Next.js 16.1.6

@@ -12,11 +12,11 @@ export function ContactSection() {
                 <motion.div
                     initial={{ y: -50, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: false, amount: 0.1 }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="flex justify-center items-center mb-10 space-x-3"
                 >
-                    <MapPin className="text-purple-700 w-10 h-10 fill-transparent" />
+                    <MapPin className="text-purple-700 w-10 h-10 fill-transparent animate-bounce-subtle" />
                     <h2 className="text-3xl font-bold text-purple-800 leading-tight">
                         <span className="block text-lg font-normal text-purple-700">Venha conversar</span>
                         COMIGO!
@@ -27,7 +27,7 @@ export function ContactSection() {
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0, filter: "blur(10px)" }}
                     whileInView={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-                    viewport={{ once: false, amount: 0.1 }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="relative bg-white/50 rounded-3xl overflow-hidden shadow-xl h-[400px] md:h-[700px]"
                 >
@@ -45,7 +45,7 @@ export function ContactSection() {
                     </div>
 
                     {/* Floating Card */}
-                    <div className="absolute bottom-4 right-4 left-4 md:left-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-10 bg-[#0EA5E9] text-white p-4 md:p-6 rounded-xl md:rounded-2xl shadow-2xl md:max-w-sm w-auto md:w-full">
+                    <div className="absolute bottom-4 right-4 left-4 md:left-auto md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-10 bg-helem-blue/90 backdrop-blur-md text-white p-4 md:p-6 rounded-xl md:rounded-2xl shadow-2xl md:max-w-sm w-auto md:w-full">
                         <h3 className="text-lg md:text-xl font-bold mb-0.5 md:mb-1">Maricá, RJ</h3>
                         <h4 className="text-xl md:text-2xl font-extrabold mb-3 md:mb-4">Ponto de referência</h4>
                         <p className="text-xs md:text-sm opacity-90 mb-3 md:mb-6">

@@ -12,8 +12,8 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Helem Christina",
-    jobTitle: "Pré-candidata a Deputada Estadual",
+    name: "Helem Cristina",
+    jobTitle: "Candidata a Deputada Estadual",
     affiliation: {
       "@type": "Organization",
       name: "PSDB Rio de Janeiro",
@@ -23,7 +23,7 @@ export default function Home() {
       name: "Maricá, Rio de Janeiro",
     },
     description:
-      "Trajetória, pautas e compromissos propostos por Helem Christina, pré-candidata a Deputada Estadual no Rio de Janeiro.",
+      "Trajetória, pautas e compromissos propostos por Helem Cristina, candidata a Deputada Estadual no Rio de Janeiro.",
     url: "https://helemoficial.com",
     image: "https://helemoficial.com/whatsapp-image-2026-08-16-hero.jpeg",
   };

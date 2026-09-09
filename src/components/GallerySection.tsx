@@ -34,24 +34,23 @@ export function GallerySection() {
         fetchImages();
     }, []);
 
+    const currentSpeedRef = useRef(0.5);
+
     useEffect(() => {
         const scrollContainer = scrollRef.current;
         if (!scrollContainer || images.length === 0) return;
 
         let animationFrameId: number;
-        // Adjust speed here
-        const speed = 0.5; // Slower speed for better UX
 
         const scroll = () => {
-            if (!isHovered) {
-                // When we've scrolled half the width (the first set), reset to 0
-                // We use >= here to catch it if it overshoots slightly
-                // The container has 2 identical sets of images
-                if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-                    scrollContainer.scrollLeft = 0;
-                } else {
-                    scrollContainer.scrollLeft += speed;
-                }
+            currentSpeedRef.current = isHovered 
+                ? Math.max(currentSpeedRef.current * 0.95, 0) 
+                : Math.min(currentSpeedRef.current + 0.02, 0.5);
+
+            if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+                scrollContainer.scrollLeft = 0;
+            } else {
+                scrollContainer.scrollLeft += currentSpeedRef.current;
             }
             animationFrameId = requestAnimationFrame(scroll);
         };
@@ -93,9 +92,9 @@ export function GallerySection() {
             <div className="relative w-full max-w-[100%] py-12">
 
                 {/* Left Blur Mask */}
-                <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-purple-50 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-purple-50 via-purple-50/80 to-transparent z-10 pointer-events-none"></div>
                 {/* Right Blur Mask */}
-                <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-purple-50 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-purple-50 via-purple-50/80 to-transparent z-10 pointer-events-none"></div>
 
                 {/* Infinite Scroll Wrapper */}
                 <div
@@ -106,11 +105,11 @@ export function GallerySection() {
                     onWheel={handleWheel}
                 >
                     {/* First Set of Images */}
-                    <div className="flex gap-6 pr-6 flex-shrink-0">
+                    <div className="flex gap-4 sm:gap-6 pr-4 sm:pr-6 flex-shrink-0">
                         {images.map((item, index) => (
                             <div
                                 key={`set1-${item.id}-${index}`}
-                                className="min-w-[200px] max-h-[200px] md:min-w-[480px] md:max-h-[480px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
+                                className="min-w-[240px] h-[240px] sm:min-w-[300px] sm:h-[300px] md:min-w-[440px] md:h-[440px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
                             >
                                 <div className="relative w-full h-full">
                                     <Image
@@ -118,19 +117,19 @@ export function GallerySection() {
                                         alt={item.title || `Galeria ${index + 1}`}
                                         fill
                                         unoptimized
-                                        sizes="(max-width: 768px) 200px, 480px"
-                                        className="w-full h-full object-cover rounded-xl pointer-events-none"
+                                        sizes="(max-width: 640px) 240px, (max-width: 768px) 300px, 440px"
+                                        className="w-full h-full object-cover object-top md:object-center rounded-xl pointer-events-none"
                                     />
                                 </div>
                             </div>
                         ))}
                     </div>
                     {/* Second Set (Duplicate for Infinite Loop) */}
-                    <div className="flex gap-6 pr-6 flex-shrink-0">
+                    <div className="flex gap-4 sm:gap-6 pr-4 sm:pr-6 flex-shrink-0">
                         {images.map((item, index) => (
                             <div
                                 key={`set2-${item.id}-${index}`}
-                                className="min-w-[200px] max-h-[200px] md:min-w-[480px] md:max-h-[480px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
+                                className="min-w-[240px] h-[240px] sm:min-w-[300px] sm:h-[300px] md:min-w-[440px] md:h-[440px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-white p-2 transform transition-transform duration-300 hover:scale-105"
                             >
                                 <div className="relative w-full h-full">
                                     <Image
@@ -138,8 +137,8 @@ export function GallerySection() {
                                         alt={item.title || `Galeria ${index + 1}`}
                                         fill
                                         unoptimized
-                                        sizes="(max-width: 768px) 200px, 480px"
-                                        className="w-full h-full object-cover rounded-xl pointer-events-none"
+                                        sizes="(max-width: 640px) 240px, (max-width: 768px) 300px, 440px"
+                                        className="w-full h-full object-cover object-top md:object-center rounded-xl pointer-events-none"
                                     />
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Caveat, Indie_Flower } from "next/font/google";
+import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,22 +17,16 @@ const caveat = Caveat({
   subsets: ["latin"],
 });
 
-const indieFlower = Indie_Flower({
-  weight: "400",
-  variable: "--font-indie",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://helemoficial.com"),
   title: {
-    template: "%s | Helem Christina",
-    default: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
+    template: "%s | Helem Cristina",
+    default: "Helem Cristina | Candidata a Deputada Estadual - RJ",
   },
   description:
-    "Conheça a trajetória, as pautas e os compromissos propostos por Helem Christina para o Rio de Janeiro.",
+    "Conheça a trajetória, as pautas e os compromissos propostos por Helem Cristina para o Rio de Janeiro.",
   keywords: [
-    "Helem Christina",
+    "Helem Cristina",
     "Deputada Estadual",
     "PSDB RJ",
     "Defesa da Mulher",
@@ -42,29 +36,29 @@ export const metadata: Metadata = {
     "Maricá",
     "Política",
   ],
-  authors: [{ name: "Helem Christina" }],
-  creator: "Helem Christina",
+  authors: [{ name: "Helem Cristina" }],
+  creator: "Helem Cristina",
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: "/",
-    title: "Helem Christina | Pré-candidata a Deputada Estadual - RJ",
+    title: "Helem Cristina | Candidata a Deputada Estadual - RJ",
     description:
-      "Conheça as pautas e os compromissos propostos por Helem Christina para as mulheres e os territórios do Rio de Janeiro.",
-    siteName: "Helem Christina",
+      "Conheça as pautas e os compromissos propostos por Helem Cristina para as mulheres e os territórios do Rio de Janeiro.",
+    siteName: "Helem Cristina",
     images: [
       {
         url: "/whatsapp-image-2026-08-16-hero.jpeg",
         width: 1366,
         height: 768,
-        alt: "Arte oficial de pré-campanha de Helem Cristina para deputada estadual no Rio de Janeiro, número 45789",
+        alt: "Arte oficial de campanha de Helem Cristina para deputada estadual no Rio de Janeiro, número 45789",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Helem Christina | Pré-candidata a Deputada Estadual",
-    description: "Conheça a trajetória e os compromissos propostos por Helem Christina. #Elas e suas fortalezas.",
+    title: "Helem Cristina | Candidata a Deputada Estadual",
+    description: "Conheça a trajetória e os compromissos propostos por Helem Cristina. #Elas e suas fortalezas.",
     images: ["/whatsapp-image-2026-08-16-hero.jpeg"],
   },
   alternates: {
@@ -80,7 +74,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${indieFlower.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
       >
         {children}
       </body>

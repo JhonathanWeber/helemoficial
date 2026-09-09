@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu, X, Users } from "lucide-react";
+import { LayoutDashboard, Image as ImageIcon, Newspaper, LogOut, Menu, X, Users, Sparkles } from "lucide-react";
 import { authService } from "@/services/auth";
 import { Toaster } from 'react-hot-toast';
 
@@ -14,6 +14,7 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     const router = useRouter();
+    const pathname = usePathname();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -105,12 +106,15 @@ export default function AdminLayout({
                 </div>
 
                 <nav className="flex-1 mt-6 px-4 space-y-2">
-                    <NavItem href="/admin" icon={LayoutDashboard} label="Dashboard" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
-                    <NavItem href="/admin/galeria" icon={ImageIcon} label="Galeria" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
-                    <NavItem href="/admin/noticias" icon={Newspaper} label="Notícias" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
+                    <NavItem href="/admin" icon={LayoutDashboard} label="Dashboard" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} isActive={pathname === "/admin"} />
+                    <NavItem href="/admin/galeria" icon={ImageIcon} label="Galeria" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} isActive={pathname.startsWith("/admin/galeria")} />
+                    <NavItem href="/admin/noticias" icon={Newspaper} label="Notícias" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} isActive={pathname.startsWith("/admin/noticias")} />
                     {userRole === 'ADMIN' && (
-                        <NavItem href="/admin/usuarios" icon={Users} label="Equipe" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} />
+                        <NavItem href="/admin/usuarios" icon={Users} label="Equipe" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} isActive={pathname.startsWith("/admin/usuarios")} />
                     )}
+                    <div className="pt-4 border-t border-purple-800/60 my-2">
+                        <NavItem href="/avatar" icon={Sparkles} label="Gerador Avatar" isOpen={isSidebarOpen || isMobileOpen} onClick={() => setIsMobileOpen(false)} isActive={pathname === "/avatar"} />
+                    </div>
                 </nav>
 
                 <div className="p-4 border-t border-purple-800">
@@ -132,12 +136,16 @@ export default function AdminLayout({
     );
 }
 
-function NavItem({ href, icon: Icon, label, isOpen, onClick }: { href: string, icon: LucideIcon, label: string, isOpen: boolean, onClick?: () => void }) {
+function NavItem({ href, icon: Icon, label, isOpen, onClick, isActive }: { href: string, icon: LucideIcon, label: string, isOpen: boolean, onClick?: () => void, isActive?: boolean }) {
     return (
         <Link
             href={href}
             onClick={onClick}
-            className="flex items-center p-3 text-gray-200 hover:bg-purple-800 hover:text-white rounded-lg transition"
+            className={`flex items-center p-3 rounded-lg transition ${
+                isActive 
+                ? 'bg-purple-800/60 text-white border-l-[3px] border-helem-yellow' 
+                : 'text-gray-200 hover:bg-purple-800 hover:text-white border-l-[3px] border-transparent'
+            }`}
         >
             <Icon className="w-6 h-6 min-w-6" />
             {isOpen && <span className="ml-3 font-medium truncate">{label}</span>}

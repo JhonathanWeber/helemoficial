@@ -1,13 +1,13 @@
-# Perfil Político e Identidade: Helem Christina
+# Perfil Político e Identidade: Helem Cristina
 
-Este documento centraliza as diretrizes de narrativa, identidade e tom de voz da pré-campanha de Helem Christina. Ele deve ser utilizado como base (Source of Truth) para criação de artigos, copys para UI, SEO, metadados e conteúdos de rede social abordados pela aplicação web.
+Este documento centraliza as diretrizes de narrativa, identidade e tom de voz da campanha de Helem Cristina. Ele deve ser utilizado como base (Source of Truth) para criação de artigos, copys para UI, SEO, metadados e conteúdos de rede social abordados pela aplicação web.
 
 > **Controle editorial:** relatos de violência, trauma, maternidade, origem, liderança de grupos e números de impacto exigem autorização expressa da equipe e fonte identificada antes de aparecerem como fatos em páginas públicas. Enquanto não houver confirmação, usar linguagem de declaração da própria candidatura ou manter o trecho apenas como rascunho interno.
 
 ## 1. Visão Geral
 
-- **Nome Completo:** Helem Christina
-- **Cargo Pretendido:** Pré-candidata a Deputada Estadual (Rio de Janeiro)
+- **Nome Completo:** Helem Cristina
+- **Cargo:** Candidata a Deputada Estadual (Rio de Janeiro)
 - **Partido:** PSDB
 - **Origem:** Mulher negra, de periferia, nascida e criada no Jacarezinho (RJ).
 - **Residência Atual:** Maricá (RJ).
@@ -46,8 +46,8 @@ Como mãe, a sua perspectiva política é focada no futuro, na proteção, no cu
 ## 5. Diretrizes para SEO e Descrições de Página (Base para o Frontend)
 
 Quando trabalharmos no SEO do site, os metadados devem girar em torno das seguintes palavras-chave e narrativas principais:
-- **Palavras-chave (Keywords):** *Helem Christina, Pré-candidata a Deputada Estadual PSDB, Defesa da Mulher, Combate à Violência contra a Mulher, Liderança Feminina, Jacarezinho, Maricá, Política Rio de Janeiro, Mulher Negra na Política.*
-- **Descrições curtas e de impacto (Meta Descriptions):** "Conheça a história de Helem Christina, mulher negra do Jacarezinho, moradora de Maricá, mãe e lutadora ativa contra a violência feminina. Pré-candidata a Deputada Estadual pelo PSDB-RJ."
+- **Palavras-chave (Keywords):** *Helem Cristina, Candidata a Deputada Estadual PSDB, Defesa da Mulher, Combate à Violência contra a Mulher, Liderança Feminina, Jacarezinho, Maricá, Política Rio de Janeiro, Mulher Negra na Política.*
+- **Descrições curtas e de impacto (Meta Descriptions):** "Conheça a história de Helem Cristina, mulher negra do Jacarezinho, moradora de Maricá, mãe e lutadora ativa contra a violência feminina. Candidata a Deputada Estadual pelo PSDB-RJ."
 
 ## 6. Slogan / Assinaturas da Campanha (Extraídos da Narrativa)
 - "#Elas e suas fortalezas!" (Slogan atual do site)
@@ -56,4 +56,4 @@ Quando trabalharmos no SEO do site, os metadados devem girar em torno das seguin
 - "Quando a gente caminha junto, ninguém fica pra trás."
 
 ---
-*Este documento deve guiar todas as decisões de texto, UX/UI, copy e SEO ao longo do projeto frontend da Helem Christina.*
+*Este documento deve guiar todas as decisões de texto, UX/UI, copy e SEO ao longo do projeto frontend da Helem Cristina.*

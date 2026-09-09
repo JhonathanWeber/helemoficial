@@ -22,19 +22,22 @@ export default function UsuariosPage() {
     const [deletingId, setDeletingId] = useState<string | null>(null);
 
     useEffect(() => {
-        loadUsers();
-    }, []);
+        let isMounted = true;
+        usersService.getAll()
+            .then((data) => {
+                if (isMounted) setUsers(data);
+            })
+            .catch(() => {
+                if (isMounted) toast.error("Erro ao carregar usuários.");
+            })
+            .finally(() => {
+                if (isMounted) setLoading(false);
+            });
 
-    async function loadUsers() {
-        try {
-            const data = await usersService.getAll();
-            setUsers(data);
-        } catch {
-            toast.error("Erro ao carregar usuários.");
-        } finally {
-            setLoading(false);
-        }
-    }
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     async function handleDelete(user: AdminUser) {
         if (!confirm(`Tem certeza que deseja remover "${user.name}"?`)) return;

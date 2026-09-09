@@ -50,17 +50,30 @@ export function Navbar() {
 
     return (
         <header
-            className={`fixed top-0 left-0 z-50 bg-[#6D28D9] bg-helem-purple-mid w-full text-white h-24 flex justify-between items-center pl-6 md:pl-12 pr-6 md:pr-0 transition-transform duration-300 ${isVisible ? 'translate-y-0 shadow-lg' : '-translate-y-full'}`}
+            className={`fixed top-0 left-0 z-50 bg-helem-purple-900/80 backdrop-blur-xl backdrop-saturate-150 w-full text-white h-24 flex justify-between items-center pl-6 md:pl-12 pr-6 md:pr-0 transition-all duration-300 ${isVisible ? 'translate-y-0 shadow-lg' : '-translate-y-full shadow-lg/0'}`}
         >
             <div className="text-4xl font-cursive font-bold">
-                Helem Christina
+                Helem Cristina
             </div>
 
             {/* Desktop Menu */}
             <nav className="hidden md:flex space-x-8 items-center text-xs tracking-wider uppercase h-full">
-                <Link href="/#historia" className="hover:text-yellow-300 transition">Minha História</Link>
-                <Link href="/#bandeiras" className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
-                <Link href="/#galeria" className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
+                <Link href="/#historia" className="relative group hover:text-yellow-300 transition">
+                    <span>Minha História</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link href="/#bandeiras" className="relative group hover:text-yellow-300 transition">
+                    <span>Minhas Bandeiras</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link href="/#galeria" className="relative group hover:text-yellow-300 transition">
+                    <span>Galeria de Fotos</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+                <Link href="/avatar" className="relative group text-yellow-300 hover:text-yellow-200 transition font-bold">
+                    <span>Criar Avatar</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-200 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
                 <Link href="/login" className="text-white/30 hover:text-white transition" title="Login Integrante">
                     <User className="w-5 h-5" />
                 </Link>
@@ -71,7 +84,7 @@ export function Navbar() {
                     href={whatsappUrl || "/#contato"}
                     target={whatsappUrl ? "_blank" : undefined}
                     rel={whatsappUrl ? "noopener noreferrer" : undefined}
-                    className="bg-orange-400 hover:bg-orange-500 text-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center"
+                    className="bg-orange-400 hover:bg-orange-500 text-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center hover:shadow-lg hover:shadow-orange-400/30"
                 >
                     Whatsapp
                 </a>
@@ -86,8 +99,8 @@ export function Navbar() {
             <div className={`fixed inset-0 z-[60] bg-black/50 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}></div>
 
             {/* Mobile Sidebar */}
-            <div className={`fixed top-0 right-0 z-[70] h-[100dvh] w-[80%] max-w-sm bg-[#6D28D9] shadow-2xl transition-transform duration-300 transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className="flex flex-col h-full bg-helem-purple-mid text-white">
+            <div className={`fixed top-0 right-0 z-[70] h-[100dvh] w-[80%] max-w-sm bg-helem-purple-900 shadow-2xl transition-transform duration-300 transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="flex flex-col h-full bg-helem-purple-900 text-white">
                     <div className="flex justify-end p-6 h-24 items-center">
                         <button onClick={() => setIsMobileMenuOpen(false)}>
                             <X className="w-8 h-8" />
@@ -95,9 +108,22 @@ export function Navbar() {
                     </div>
 
                     <nav className="flex flex-col items-center space-y-8 mt-10 text-lg uppercase tracking-wider font-bold">
-                        <Link href="/#historia" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minha História</Link>
-                        <Link href="/#bandeiras" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Minhas Bandeiras</Link>
-                        <Link href="/#galeria" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-yellow-300 transition">Galeria de Fotos</Link>
+                        <Link href="/#historia" onClick={() => setIsMobileMenuOpen(false)} className="relative group hover:text-yellow-300 transition">
+                            <span>Minha História</span>
+                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
+                        <Link href="/#bandeiras" onClick={() => setIsMobileMenuOpen(false)} className="relative group hover:text-yellow-300 transition">
+                            <span>Minhas Bandeiras</span>
+                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
+                        <Link href="/#galeria" onClick={() => setIsMobileMenuOpen(false)} className="relative group hover:text-yellow-300 transition">
+                            <span>Galeria de Fotos</span>
+                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
+                        <Link href="/avatar" onClick={() => setIsMobileMenuOpen(false)} className="relative group text-yellow-300 hover:text-yellow-200 transition">
+                            <span>Criar Avatar 45789</span>
+                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-200 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
                         <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-white/30 hover:text-white transition pt-4">
                             <User className="w-6 h-6" />
                         </Link>
@@ -109,7 +135,7 @@ export function Navbar() {
                             target={whatsappUrl ? "_blank" : undefined}
                             rel={whatsappUrl ? "noopener noreferrer" : undefined}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="bg-orange-400 hover:bg-orange-500 text-white py-6 text-sm font-bold uppercase transition text-center"
+                            className="bg-orange-400 hover:bg-orange-500 text-white py-6 text-sm font-bold uppercase transition text-center hover:shadow-lg hover:shadow-orange-400/30"
                         >
                             Whatsapp
                         </a>

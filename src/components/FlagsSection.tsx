@@ -96,7 +96,7 @@ export function FlagsSection() {
         <section
             ref={containerRef}
             id="bandeiras"
-            className="w-full min-h-screen flex flex-col justify-center bg-[#5B21B6]/90 backdrop-blur-md py-20 px-4 text-white overflow-hidden relative"
+            className="w-full min-h-screen flex flex-col justify-center bg-helem-purple-900/90 backdrop-blur-md py-20 px-4 text-white overflow-hidden relative"
             aria-labelledby="bandeiras-title"
         >
             <div className="max-w-6xl mx-auto flex flex-col items-center">
@@ -120,11 +120,11 @@ export function FlagsSection() {
                         <motion.div
                             key={flag.id}
                             style={getStyle(idx)}
-                            className="group flex flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 text-left shadow-2xl backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2"
+                            className="group flex flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 text-left shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_25px_60px_-15px_rgba(109,40,217,0.4)]"
                         >
                             <div className={`relative isolate flex aspect-[4/3] w-full items-end overflow-hidden bg-gradient-to-br ${flag.visual} p-6`}>
-                                <div className="absolute -right-10 -top-12 -z-10 h-40 w-40 rounded-full border-[18px] border-white/15" aria-hidden="true" />
-                                <div className="absolute -bottom-16 -left-8 -z-10 h-44 w-44 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
+                                <div className="absolute -right-10 -top-12 -z-10 h-40 w-40 rounded-full border-[18px] border-white/15 animate-float" aria-hidden="true" />
+                                <div className="absolute -bottom-16 -left-8 -z-10 h-44 w-44 rounded-full bg-white/10 blur-2xl animate-float" aria-hidden="true" />
                                 <Icon className="absolute right-6 top-6 h-14 w-14 text-white/85" strokeWidth={1.5} aria-hidden="true" />
                                 <span className="rounded-full border border-white/30 bg-black/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/90">
                                     {flag.eyebrow}

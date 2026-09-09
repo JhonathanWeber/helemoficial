@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { statsService, DashboardStats } from "@/services/stats";
 
+import { Camera, Newspaper, Eye } from "lucide-react";
+
 export default function AdminDashboard() {
     const [data, setData] = useState<DashboardStats | null>(null);
     const [loading, setLoading] = useState(true);
@@ -40,21 +42,36 @@ export default function AdminDashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {/* Stat Card 1 */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-200">
-                    <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Total de Fotos</h3>
-                    <p className="text-4xl font-bold text-purple-700">{data?.stats.totalPhotos || 0}</p>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-200 border-l-4 border-l-helem-purple-600 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Total de Fotos</h3>
+                            <p className="text-4xl font-bold text-purple-700">{data?.stats.totalPhotos || 0}</p>
+                        </div>
+                        <Camera className="w-8 h-8 text-purple-200" />
+                    </div>
                 </div>
 
                 {/* Stat Card 2 */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Notícias Publicadas</h3>
-                    <p className="text-4xl font-bold text-orange-500">{data?.stats.totalPosts || 0}</p>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-helem-orange hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Notícias Publicadas</h3>
+                            <p className="text-4xl font-bold text-orange-500">{data?.stats.totalPosts || 0}</p>
+                        </div>
+                        <Newspaper className="w-8 h-8 text-orange-200" />
+                    </div>
                 </div>
 
                 {/* Stat Card 3 */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Visualizações Hoje</h3>
-                    <p className="text-4xl font-bold text-green-500">{data?.stats.viewsToday || 0}</p>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 border-l-4 border-l-green-500 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className="text-gray-500 text-sm font-medium uppercase mb-2">Visualizações Hoje</h3>
+                            <p className="text-4xl font-bold text-green-500">{data?.stats.viewsToday || 0}</p>
+                        </div>
+                        <Eye className="w-8 h-8 text-green-200" />
+                    </div>
                 </div>
             </div>
 

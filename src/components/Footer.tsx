@@ -39,9 +39,9 @@ export function Footer() {
                                 title={label}
                                 initial={{ ...initial, opacity: 0, scale: 0.5, filter: "blur(10px)" }}
                                 whileInView={{ x: 0, y: 0, opacity: 1, scale: 1, filter: "blur(0px)" }}
-                                viewport={{ once: false, amount: 0.2 }}
+                                viewport={{ once: true, amount: 0.2 }}
                                 transition={{ type: "spring", stiffness: 260, damping: 20, delay: i * 0.1 }}
-                                className="w-12 h-12 bg-purple-800 rounded-lg flex items-center justify-center text-white hover:bg-purple-600 transition shadow-lg"
+                                className="w-12 h-12 bg-purple-800 rounded-lg flex items-center justify-center text-white hover:bg-purple-600 transition hover:shadow-lg hover:shadow-purple-500/30 hover:scale-110"
                             >
                                 <Icon className="w-6 h-6" />
                             </motion.a>
@@ -51,21 +51,24 @@ export function Footer() {
             </div>
 
             {/* Bottom Crowd Banner */}
-            <div className="relative w-full h-[65vh] bg-gray-900 flex items-end justify-center">
+            <div className="relative w-full min-h-[50vh] md:h-[65vh] bg-gray-900 flex items-end justify-center">
                 <Image
                     src="/foto_minha_caminhada_bottom.png"
                     alt="Minha caminhada com as mulheres"
                     fill
                     priority
                     sizes="100vw"
-                    className="absolute inset-0 w-full h-full object-cover opacity-60"
+                    className="absolute inset-0 w-full h-full object-cover object-top md:object-center"
                 />
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent pointer-events-none"></div>
 
                 <motion.div
                     initial={{ y: 100, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     className="relative z-10 md:mb-40 mb-[45%] max-w-4xl text-center px-4"
                 >
                     <h3 className="text-white text-4xl md:text-7xl font-bold font-sans drop-shadow-md">
@@ -75,6 +78,7 @@ export function Footer() {
                     <p className="text-white text-center md:text-right text-xl md:text-3xl mt-2 font-bold">- Helem</p>
                 </motion.div>
             </div>
+            <p className="text-center text-white/40 text-xs py-4 bg-gray-950">© 2026 Helem Cristina. Todos os direitos reservados.</p>
         </footer>
     );
 }

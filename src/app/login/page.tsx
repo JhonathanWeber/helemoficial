@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, User } from "lucide-react";
 import { authService } from "@/services/auth";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -26,10 +27,16 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-purple-900 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+        <div className="min-h-screen bg-purple-900 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute inset-0 pattern-dots text-purple-800/20" />
+            <motion.div 
+                initial={{ opacity: 0, y: 20, scale: 0.98 }} 
+                animate={{ opacity: 1, y: 0, scale: 1 }} 
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative z-10"
+            >
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-cursive text-purple-800 mb-2">Helem Christina</h1>
+                    <h1 className="text-3xl font-cursive text-purple-800 mb-2">Helem Cristina</h1>
                     <p className="text-gray-500 font-sans">Painel Administrativo</p>
                 </div>
 
@@ -77,7 +84,7 @@ export default function LoginPage() {
                         Entrar
                     </button>
                 </form>
-            </div>
+            </motion.div>
         </div>
     );
 }

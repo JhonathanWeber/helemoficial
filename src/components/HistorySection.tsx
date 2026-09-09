@@ -1,12 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Key } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export function HistorySection() {
     const containerRef = useRef<HTMLElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 767px)");
+        const updateViewport = () => setIsMobile(mediaQuery.matches);
+
+        updateViewport();
+        mediaQuery.addEventListener("change", updateViewport);
+
+        return () => mediaQuery.removeEventListener("change", updateViewport);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "center center"]
@@ -21,13 +33,16 @@ export function HistorySection() {
     // Movimento do texto (vem da direita)
     const xText = useTransform(scrollYProgress, [0, 1], [100, 0]);
 
+    const imageStyle = isMobile ? { opacity, scale } : { x: xImage, opacity, scale };
+    const textStyle = isMobile ? { opacity, scale } : { x: xText, opacity, scale };
+
     return (
         <section
             ref={containerRef}
             id="historia"
-            className="w-full min-h-screen flex flex-col justify-center bg-[#FAF9F6]/90 backdrop-blur-md py-16 px-6 md:px-20 relative overflow-hidden"
+            className="w-full min-h-screen flex flex-col justify-center bg-helem-surface/90 backdrop-blur-md py-16 px-6 md:px-20 relative overflow-hidden"
         >
-            <h2 className="sr-only">Trajetória na Política e Superação de Helem Christina</h2>
+            <h2 className="sr-only">Trajetória na Política e Superação de Helem Cristina</h2>
             {/* Header with Icon */}
             <motion.div
                 style={{ opacity, scale }}
@@ -44,28 +59,28 @@ export function HistorySection() {
 
                 {/* Left Column: Image */}
                 <motion.div
-                    style={{ x: xImage, opacity, scale }}
+                    style={imageStyle}
                     className="relative flex justify-center lg:justify-end order-1 lg:order-none"
                 >
                     {/* Yellow decorative blob background */}
-                    <div className="absolute top-10 w-64 h-[70%] md:w-80 md:h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl"></div>
+                    <div className="absolute top-6 md:top-10 w-64 h-[70%] md:w-80 md:h-[80%] bg-yellow-400 rounded-3xl mix-blend-multiply opacity-60 blur-2xl animate-float"></div>
 
-                    <div className="relative z-10 w-[280px] md:w-full max-w-[500px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-500">
+                    <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] md:max-w-[480px] bg-transparent rounded-2xl border-4 border-white shadow-2xl overflow-hidden transform hover:scale-[1.02] md:hover:scale-[1.03] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-500">
                         <Image
                             src="/helem foto de perfil corpo 2.jpg"
-                            alt="Helem Christina conversando com a população sobre segurança e direitos da mulher"
+                            alt="Helem Cristina conversando com a população sobre segurança e direitos da mulher"
                             width={500}
                             height={700}
                             priority
-                            sizes="(max-width: 768px) 280px, 500px"
-                            className="w-full h-auto object-contain rounded-xl"
+                            sizes="(max-width: 640px) 280px, (max-width: 768px) 340px, 480px"
+                            className="w-full h-auto object-contain object-top rounded-xl"
                         />
                     </div>
                 </motion.div>
 
                 {/* Right Column: Text */}
                 <motion.div
-                    style={{ x: xText, opacity, scale }}
+                    style={textStyle}
                     className="space-y-6 md:space-y-8 text-purple-950 font-medium leading-relaxed px-4 md:px-0 order-2 lg:order-none text-center md:text-left"
                 >
                     <p>
@@ -84,7 +99,8 @@ export function HistorySection() {
                     <p>
                         Acredito numa política que abraça, que protege e que transforma – não numa política distante e fria.
                     </p>
-                    <p className="border-l-4 border-purple-600 pl-4 py-1 italic">
+                    <p className="border-l-4 border-purple-600 pl-4 py-1 italic relative">
+                        <span className="text-6xl text-purple-300/30 font-serif absolute -top-4 -left-2">&ldquo;</span>
                         Sempre caminhei junto com lideranças comunitárias, movimentos e pessoas comuns que só querem viver melhor. <strong>Porque política, pra mim, é presença e é coragem.</strong>
                     </p>
                     <p>
@@ -95,7 +111,7 @@ export function HistorySection() {
             </div>
 
             {/* Decorative side element */}
-            <div className="absolute top-1/2 right-0 w-32 h-64 bg-purple-800 rounded-l-full opacity-10 translate-x-16"></div>
+            <div className="absolute top-1/2 right-0 w-32 h-64 bg-helem-purple-800 rounded-l-full opacity-10 translate-x-16 animate-glow-pulse"></div>
         </section>
     );
 }
