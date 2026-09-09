@@ -13,23 +13,22 @@ export function Hero() {
     const y = useTransform(scrollY, [0, 1000], [0, -50]);
 
     return (
-        <section ref={ref} className="relative w-full min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] md:min-h-[calc(100dvh-6rem)] bg-gradient-to-r from-[#5367f4] via-[#ab58d2] to-[#ed7f9f] overflow-hidden">
-            <motion.div style={{ y }} className="fixed inset-0 -z-50 h-[100dvh] w-full bg-gradient-to-r from-[#5367f4] via-[#ab58d2] to-[#ed7f9f]">
+        <section ref={ref} className="relative w-full h-[calc(100dvh-4rem)] sm:h-[calc(100dvh-5rem)] md:h-[calc(100dvh-6rem)] bg-gradient-to-r from-[#5367f4] via-[#ab58d2] to-[#ed7f9f] overflow-hidden flex items-center justify-center">
+            {/* Imagem de Fundo e Arte Oficial */}
+            <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
                 {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/40 via-transparent to-pink-500/30 animate-glow-pulse mix-blend-overlay z-10 pointer-events-none"></div>
-                <div className="absolute inset-0 block">
-                    <Image
-                        src="/whatsapp-image-2026-08-16-hero.jpeg"
-                        alt="Arte oficial de campanha de Helem Cristina para deputada estadual no Rio de Janeiro, número 45789"
-                        fill
-                        priority
-                        sizes="100vw"
-                        className="h-full w-full object-contain object-center relative z-0"
-                    />
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/30 via-transparent to-pink-500/20 animate-glow-pulse mix-blend-overlay z-10 pointer-events-none"></div>
+                <Image
+                    src="/whatsapp-image-2026-08-16-hero.jpeg"
+                    alt="Arte oficial de campanha de Helem Cristina para deputada estadual no Rio de Janeiro, número 45789"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="w-full h-full object-contain object-center z-0"
+                />
             </motion.div>
 
-            <div className="relative w-full min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] md:min-h-[calc(100dvh-6rem)] flex items-center justify-center pointer-events-none">
+            <div className="relative z-20 w-full h-full flex items-center justify-center pointer-events-none">
                 <h1 className="sr-only">
                     Helem Cristina — candidata a deputada estadual pelo Rio de Janeiro
                 </h1>
