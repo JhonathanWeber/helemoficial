@@ -65,20 +65,29 @@ export function Footer() {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent pointer-events-none"></div>
 
                 <motion.div
-                    initial={{ y: 100, opacity: 0 }}
+                    initial={{ y: 50, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.3 }}
-                    className="relative z-10 md:mb-40 mb-[45%] max-w-4xl text-center px-4"
+                    className="relative z-10 md:mb-32 mb-[35%] max-w-5xl text-center px-6"
                 >
-                    <h3 className="text-white text-4xl md:text-7xl font-bold font-sans drop-shadow-md">
-                        Minha caminhada é junto com as mulheres<br />
-                        e os trabalhadores do nosso estado!
+                    <h3 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-sans drop-shadow-xl leading-tight">
+                        Minha caminhada é junto com as{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-400 drop-shadow-md">
+                            mulheres e os trabalhadores
+                        </span>{" "}
+                        do nosso estado!
                     </h3>
-                    <p className="text-white text-center md:text-right text-xl md:text-3xl mt-2 font-bold">- Helem</p>
+                    <p className="text-yellow-300 text-center md:text-right text-3xl sm:text-4xl md:text-5xl mt-4 font-cursive font-bold drop-shadow-lg">
+                        — Helem Cristina
+                    </p>
                 </motion.div>
             </div>
-            <p className="text-center text-white/40 text-xs py-4 bg-gray-950">© 2026 Helem Cristina. Todos os direitos reservados.</p>
+            <div className="bg-gray-950 py-5 text-center px-4 border-t border-white/5">
+                <p className="text-white/50 text-xs tracking-wider">
+                    © 2026 Helem Cristina • Pré-candidata a Deputada Estadual • Rio de Janeiro
+                </p>
+            </div>
         </footer>
     );
 }

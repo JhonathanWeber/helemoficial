@@ -7,7 +7,7 @@ Este documento centraliza as diretrizes de narrativa, identidade e tom de voz da
 ## 1. Visão Geral
 
 - **Nome Completo:** Helem Cristina
-- **Cargo:** Candidata a Deputada Estadual (Rio de Janeiro)
+- **Cargo:** Pré-candidata a Deputada Estadual (Rio de Janeiro)
 - **Partido:** PSDB
 - **Origem:** Mulher negra, de periferia, nascida e criada no Jacarezinho (RJ).
 - **Residência Atual:** Maricá (RJ).
@@ -24,16 +24,51 @@ Por ter sido criada no Jacarezinho, ela conhece de perto o peso da desigualdade 
 ### 2.3. O Legado (Maternidade e Cuidado)
 Como mãe, a sua perspectiva política é focada no futuro, na proteção, no cuidado e na construção de um espaço seguro onde nenhuma mulher e nenhuma criança precise passar pelas violências que ela passou ou viver no medo.
 
-## 3. Pilares da Comunicação e Plataforma Política
+## 3. As 5 Bandeiras Oficiais e Plataforma Legislativa
 
-1. **Combate Feroz à Violência contra a Mulher**
-   - *Abordagem:* Falar de suporte estrutural, independência financeira feminina, redes de apoio psicológico, leis mais rígidas e aplicação efetiva da proteção.
-2. **Representatividade Real (Mulher, Negra, Periférica)**
-   - *Abordagem:* Dar protagonismo a quem "calça o sapato". Falar pelas mães solo, pelas mulheres de comunidade e pela dignidade do trabalhador marginalizado.
-3. **Política de Presença e Escuta**
-   - *Abordagem:* A política como uma extensão do cuidado maternal e comunitário. Caminhar junto das lideranças de bairro, promover a política de "olho no olho".
-4. **Transformação Através da Força ("#Elas e suas fortalezas!")**
-   - *Abordagem:* O foco não é vitimizar Helem, mas celebrar a FORÇA. O tom deve ser sempre de superação, coragem e empoderamento feminino.
+> *"Eu vim da favela, conheço a luta do nosso povo e quero transformar essa história em voz, coragem e trabalho na Assembleia Legislativa."* — **Helem Cristina**
+
+### 3.1. As 5 Bandeiras Oficiais
+1. **Mulheres e autonomia**
+   - *Foco:* Independência financeira feminina, apoio integral a mulheres chefes de família e presença ativa das mulheres em posições de liderança e decisão.
+2. **Combate à violência contra a mulher**
+   - *Foco:* Rede de amparo estruturada, suporte psicológico, habitacional e jurídico, e rigor absoluto na fiscalização de medidas protetivas.
+3. **Defesa das comunidades e periferias**
+   - *Foco:* Dignidade, saneamento, urbanização, iluminação e voz ativa para quem vive na favela e periferias do Rio de Janeiro.
+4. **Educação e oportunidade para os jovens**
+   - *Foco:* Fortalecimento da escola pública estadual, cursos técnicos profissionalizantes, permanência escolar e portas abertas para o primeiro emprego.
+5. **Saúde, dignidade e cuidado com as pessoas**
+   - *Foco:* Rede estadual humanizada e eficiente, ampliação de exames especializados, saúde da mulher e atenção digna às regiões afastadas e interior.
+
+### 3.2. Propostas Detalhadas por Área de Atuação
+
+#### Saúde
+- Cobrar melhorias no atendimento e infraestrutura da rede estadual de saúde.
+- Defender ampliação do acesso a exames e tratamentos médicos especializados.
+- Fiscalizar recursos destinados à saúde pública estadual.
+- Defender políticas permanentes voltadas à saúde da mulher.
+- Lutar para que a população do interior e das regiões mais afastadas tenha acesso digno aos serviços especializados.
+
+#### Educação & Juventude
+- Fortalecer a educação pública estadual com melhor infraestrutura e valorização da comunidade escolar.
+- Defender a criação e expansão de cursos técnicos e profissionalizantes.
+- Criar mais oportunidades concretas para jovens ingressarem no mercado de trabalho.
+- Incentivar a permanência dos jovens na escola e combater a evasão.
+- Ampliar projetos de educação, cultura e cidadania nas comunidades.
+
+#### Cidades, Integração e Territórios (Maricá e Região)
+- Fiscalizar e acompanhar investimentos públicos estaduais que impactam Maricá e outras cidades.
+- Defender melhorias na integração institucional entre Estado e municípios.
+- Cobrar investimentos estaduais em saúde, segurança pública e mobilidade.
+- Dar atenção especial às regiões mais afastadas, como Ponta Negra, Cordeirinho, Bambuí e Jaconé.
+- Apoiar ações que estimulem geração de emprego, renda e qualificação profissional local.
+
+#### Social, Cuidado & Vulnerabilidade
+- Defender políticas públicas voltadas para famílias em vulnerabilidade social.
+- Apoiar mães solo e chefes de família que sustentam seus lares.
+- Propor iniciativas de apoio e dignidade para a população idosa.
+- Defender inclusão e acessibilidade para pessoas com deficiência (PcD).
+- Incentivar programas de capacitação e autonomia financeira.
 
 ## 4. Tom de Voz para Conteúdos Digitais e SEO
 
@@ -47,7 +82,7 @@ Como mãe, a sua perspectiva política é focada no futuro, na proteção, no cu
 
 Quando trabalharmos no SEO do site, os metadados devem girar em torno das seguintes palavras-chave e narrativas principais:
 - **Palavras-chave (Keywords):** *Helem Cristina, Candidata a Deputada Estadual PSDB, Defesa da Mulher, Combate à Violência contra a Mulher, Liderança Feminina, Jacarezinho, Maricá, Política Rio de Janeiro, Mulher Negra na Política.*
-- **Descrições curtas e de impacto (Meta Descriptions):** "Conheça a história de Helem Cristina, mulher negra do Jacarezinho, moradora de Maricá, mãe e lutadora ativa contra a violência feminina. Candidata a Deputada Estadual pelo PSDB-RJ."
+- **Descrições curtas e de impacto (Meta Descriptions):** "Conheça a história de Helem Cristina, mulher negra do Jacarezinho, moradora de Maricá, mãe e lutadora ativa contra a violência feminina. Pré-candidata a Deputada Estadual pelo PSDB-RJ."
 
 ## 6. Slogan / Assinaturas da Campanha (Extraídos da Narrativa)
 - "#Elas e suas fortalezas!" (Slogan atual do site)

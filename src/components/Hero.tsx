@@ -34,10 +34,14 @@ export function Hero() {
                 </h1>
 
                 {/* Scroll Indicator */}
-                <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce-subtle text-white drop-shadow-md">
-                    <span className="text-xs uppercase tracking-[0.2em] font-bold mb-1.5 sm:mb-2 opacity-80">Rolar</span>
-                    <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 opacity-80" />
-                </div>
+                <a
+                    href="#historia"
+                    className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce-subtle text-white drop-shadow-md pointer-events-auto group cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-full px-4 py-2"
+                    aria-label="Rolar para a seção Minha História"
+                >
+                    <span className="text-[11px] sm:text-xs uppercase tracking-[0.22em] font-bold mb-1 opacity-85 group-hover:text-yellow-300 group-hover:opacity-100 transition-colors">Rolar</span>
+                    <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 opacity-85 group-hover:text-yellow-300 group-hover:opacity-100 group-hover:translate-y-0.5 transition-all" />
+                </a>
             </div>
         </section>
     );

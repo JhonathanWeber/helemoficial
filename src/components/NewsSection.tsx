@@ -60,18 +60,21 @@ export function NewsSection() {
             <div className="container mx-auto px-6 md:px-12 relative z-10">
 
                 {/* Header */}
-                <div className="flex flex-col items-center justify-center mb-16 text-center">
-                    <div className="bg-purple-100 p-3 rounded-full mb-4">
-                        <Newspaper className="w-8 h-8 text-purple-600" />
+                <div className="flex flex-col items-center justify-center mb-16 text-center max-w-2xl mx-auto">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-100 text-purple-700 ring-1 ring-purple-200 mb-3 shadow-xs">
+                        <Newspaper className="w-6 h-6" />
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                        Últimas <span className="text-purple-600">Notícias</span>
+                    <span className="rounded-full border border-purple-800/15 bg-purple-50 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.18em] text-purple-900 mb-2">
+                        Atualizações & Ações
+                    </span>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-gray-950 mb-3 tracking-tight">
+                        Últimas <span className="text-helem-purple-700">Notícias</span>
                     </h2>
-                    <p className="text-gray-500 max-w-lg">
-                        Acompanhe minhas ações, projetos e novidades recentes.
+                    <p className="text-gray-600 text-base md:text-lg font-light leading-relaxed">
+                        Acompanhe minhas ações, projetos, posicionamentos e agenda recente por todo o Rio de Janeiro.
                     </p>
                     {editorialPreviewEnabled && (
-                        <span className="mt-4 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                        <span className="mt-4 rounded-full bg-amber-100 px-3.5 py-1 text-xs font-semibold text-amber-800 border border-amber-200">
                             Prévia local — não publicado
                         </span>
                     )}
@@ -95,10 +98,10 @@ export function NewsSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1, duration: 0.5 }}
-                            className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col h-full group"
+                            className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-gray-100/90 flex flex-col h-full group ring-1 ring-purple-950/5"
                         >
                             {/* Image */}
-                            <div className="aspect-[4/3] sm:aspect-video overflow-hidden relative bg-gradient-to-br from-purple-100 via-white to-orange-100">
+                            <div className="aspect-[4/3] sm:aspect-video overflow-hidden relative bg-gradient-to-br from-purple-100/60 via-purple-50 to-orange-50">
                                 {post.coverUrl ? (
                                     <Image
                                         src={post.coverUrl}
@@ -113,29 +116,31 @@ export function NewsSection() {
                                         <Newspaper className="w-12 h-12 opacity-20" />
                                     </div>
                                 )}
-                                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-purple-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" />
-                                    {new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(post.createdAt))}
+                                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-purple-800 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-1.5 border border-purple-100">
+                                    <Calendar className="w-3.5 h-3.5 text-purple-600" />
+                                    <span>{new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(post.createdAt))}</span>
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 flex flex-col flex-grow">
-                                <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-purple-700 transition-colors">
+                            <div className="p-6 md:p-7 flex flex-col flex-grow">
+                                <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-helem-purple-700 transition-colors leading-snug">
                                     {post.title}
                                 </h3>
 
-                                <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow font-light">
                                     {post.summary || `${stripHtml(post.content).substring(0, 100)}...`}
                                 </p>
 
-                                <Link
-                                    href={`/noticias/${post.slug || post.id}`}
-                                    className="inline-flex items-center text-purple-600 font-semibold hover:text-purple-800 transition-colors group/link"
-                                >
-                                    Ler mais
-                                    <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
-                                </Link>
+                                <div className="pt-4 border-t border-gray-100 mt-auto">
+                                    <Link
+                                        href={`/noticias/${post.slug || post.id}`}
+                                        className="inline-flex items-center text-helem-purple-700 font-bold text-sm hover:text-helem-purple-900 transition-colors group/link"
+                                    >
+                                        <span>Ler matéria completa</span>
+                                        <ArrowRight className="w-4 h-4 ml-1.5 transform group-hover/link:translate-x-1 transition-transform" />
+                                    </Link>
+                                </div>
                             </div>
                         </motion.article>
                     ))}

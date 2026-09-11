@@ -68,7 +68,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Menu */}
-            <nav className="hidden md:flex space-x-8 items-center text-xs tracking-wider uppercase h-full">
+            <nav className="hidden md:flex space-x-6 lg:space-x-8 items-center text-xs tracking-wider uppercase h-full">
                 <Link href="/#historia" className="relative group hover:text-yellow-300 transition">
                     <span>Minha História</span>
                     <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
@@ -77,15 +77,22 @@ export function Navbar() {
                     <span>Minhas Bandeiras</span>
                     <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
-                <Link href="/#galeria" className="relative group hover:text-yellow-300 transition">
-                    <span>Galeria de Fotos</span>
+                <Link href="/noticias" className="relative group hover:text-yellow-300 transition">
+                    <span>Notícias</span>
                     <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
-                <Link href="/avatar" className="relative group text-yellow-300 hover:text-yellow-200 transition font-bold">
-                    <span>Criar Avatar</span>
-                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-200 transition-all duration-300 group-hover:w-full"></span>
+                <Link href="/#galeria" className="relative group hover:text-yellow-300 transition">
+                    <span>Galeria</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-300 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
-                <Link href="/login" className="text-white/30 hover:text-white transition" title="Login Integrante">
+                <Link
+                    href="/avatar"
+                    className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-yellow-400/50 bg-yellow-400/15 text-yellow-300 hover:bg-yellow-400/25 hover:border-yellow-300 transition font-bold shadow-xs"
+                >
+                    <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                    <span>Criar Avatar</span>
+                </Link>
+                <Link href="/login" className="text-white/40 hover:text-white transition p-1" title="Login Integrante">
                     <User className="w-5 h-5" />
                 </Link>
             </nav>
@@ -95,9 +102,9 @@ export function Navbar() {
                     href={whatsappUrl || "/#contato"}
                     target={whatsappUrl ? "_blank" : undefined}
                     rel={whatsappUrl ? "noopener noreferrer" : undefined}
-                    className="bg-orange-400 hover:bg-orange-500 text-white px-8 h-full rounded-none text-sm font-bold uppercase transition flex items-center justify-center hover:shadow-lg hover:shadow-orange-400/30"
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-7 h-full rounded-none text-xs lg:text-sm font-bold uppercase transition flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-orange-500/30"
                 >
-                    Whatsapp
+                    <span>Fale no WhatsApp</span>
                 </a>
             </div>
 
